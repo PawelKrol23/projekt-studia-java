@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Informacja</title>
+</head>
+<body>
+<h3>Wartości atrybutów:</h3>
+<ol th:each="informacja : ${informacje}">
+    <li th:text="${informacja.getTytul() + ' ' + informacja.getTresc()+ ' ' + informacja.getLink()}" />
+</ol>
+</body>
+</html>
