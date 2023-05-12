@@ -6,8 +6,22 @@
 </head>
 <body>
 <h3>Wartości atrybutów:</h3>
-<ol th:each="informacja : ${informacje}">
-    <li th:text="${informacja.getTytul() + ' ' + informacja.getTresc()+ ' ' + informacja.getLink()}" />
+
+<form action="/informacja/sort">
+    <label for="sort">Wybierz opcję sortowania:</label>
+    <select id="sort" name="sort">
+        <option value="alfabetycznieR">alfabetycznie rosnąco</option>
+        <option value="alfabetycznieM">alfabetycznie malejąco</option>
+        <option value="kategoriaR">po kategori rosnąco</option>
+        <option value="kategoriaM">po kategori malejąco</option>
+        <option value="dataR">po dacie rosnąco</option>
+        <option value="dataM">po dacie malejąco</option>
+    </select>
+    <input type="submit">
+</form>
+
+<ol>
+    <li th:each="informacja : ${informacje}" th:text="${informacja}" />
 </ol>
 </body>
 </html>
