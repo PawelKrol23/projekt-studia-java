@@ -1,7 +1,6 @@
-package com.example.projekt_studia_java.repository;
+package com.example.projekt_studia_java.repositories;
 
 import com.example.projekt_studia_java.domain.Informacja;
-import lombok.ToString;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
