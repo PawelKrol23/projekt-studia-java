@@ -14,7 +14,7 @@ public class InformacjaController {
     @Autowired
     InformacjaService serwis;
 
-    @GetMapping("/")
+    @GetMapping
     public String getAllData(Model model, @RequestParam(required = false) String typ, @RequestParam(required = false) String direction) {
         if(typ != null && direction != null)
         {
