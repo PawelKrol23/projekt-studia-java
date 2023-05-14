@@ -18,15 +18,19 @@ public class InformacjaController {
     InformacjaService serwis;
 
     @GetMapping("/")
-    public String getAllData(Model model) {
+    public String getAllData(Model model, @RequestParam(required = false) String typ, @RequestParam(required = false) String direction) {
+        if(typ != null && direction != null)
+        {
+            serwis.sort(typ,direction);
+        }
 
         model.addAttribute("informacje", serwis.getInformacjaRepository().getInformacje());
         return "informacja";
     }
-    @GetMapping("/sort")
+   /* @GetMapping("/sort")
     public String sortowanie(@RequestParam String typ, @RequestParam String direction)
     {
         serwis.sort(typ,direction);
         return "redirect:/informacja/";
-    }
+    }*/
 }

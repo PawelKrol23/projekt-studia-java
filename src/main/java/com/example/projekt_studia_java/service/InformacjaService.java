@@ -17,7 +17,7 @@ public class InformacjaService {
     @Autowired
     InformacjaRepository informacjaRepository;
 
-    public void sort(String typ, String direction) {
+    public List<Informacja> sort(String typ, String direction) {
         List<Informacja> lista = informacjaRepository.getInformacje();
 
         switch (typ) {
@@ -36,5 +36,6 @@ public class InformacjaService {
         {
             java.util.Collections.reverse(lista);
         }
+        return lista;
     }
 }
