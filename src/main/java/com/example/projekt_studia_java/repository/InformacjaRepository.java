@@ -17,7 +17,8 @@ public class InformacjaRepository {
 
         this.informacje.add(new Informacja("piłka","sport","okrągła piłka","www.link.com", LocalDateTime.of(2021, 5, 12, 0, 0, 0),LocalDateTime.of(2021, 6, 12, 0, 0, 0)));
         this.informacje.add(new Informacja("obraz","sztuka","ładny obraz","www.inny_link.com", LocalDateTime.of(2023, 5, 12, 0, 0, 0),LocalDateTime.of(2023, 6, 12, 0, 0, 0)));
-        this.informacje.add(new Informacja("samochód","motoryzacja","szybki samochód","www.zupełnie_inny_link.com", LocalDateTime.of(2022, 5, 12, 0, 0, 0),LocalDateTime.of(2022, 6, 12, 0, 0, 0)));
+        this.informacje.add(new Informacja("batonik","jedzenie","przyszny batonik","www.zupełnie_inny_link.com", LocalDateTime.of(2022, 3, 12, 0, 0, 0),LocalDateTime.of(2022, 4, 12, 0, 0, 0)));
+        this.informacje.add(new Informacja("samochód","motoryzacja","szybki samochód","www.kompletnie_inny_link.com", LocalDateTime.of(2022, 5, 12, 0, 0, 0),LocalDateTime.of(2022, 6, 12, 0, 0, 0)));
     }
 
     public List<Informacja> getInformacje() {

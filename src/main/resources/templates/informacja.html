@@ -8,14 +8,15 @@
 <h3>Wartości atrybutów:</h3>
 
 <form action="/informacja/sort">
-    <label for="sort">Wybierz opcję sortowania:</label>
-    <select id="sort" name="sort">
-        <option value="alfabetycznieR">alfabetycznie rosnąco</option>
-        <option value="alfabetycznieM">alfabetycznie malejąco</option>
-        <option value="kategoriaR">po kategori rosnąco</option>
-        <option value="kategoriaM">po kategori malejąco</option>
-        <option value="dataR">po dacie rosnąco</option>
-        <option value="dataM">po dacie malejąco</option>
+    <label for="typ">Sortowanie:</label>
+    <select id="typ" name="typ">
+        <option value="alfabetycznie" selected>alfabetycznie</option>
+        <option value="kategoria">po kategori</option>
+        <option value="data">po dacie</option>
+    </select>
+    <select id="direction" name="direction">
+        <option value="rosnaco" selected>rosnąco</option>
+        <option value="malejaco">malejąco</option>
     </select>
     <input type="submit">
 </form>
