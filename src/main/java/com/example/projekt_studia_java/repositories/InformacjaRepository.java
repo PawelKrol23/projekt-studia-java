@@ -19,6 +19,9 @@ public class InformacjaRepository {
         this.informacje.add(new Informacja("batonik","jedzenie","przyszny batonik","www.zupełnie_inny_link.com", LocalDateTime.of(2022, 3, 12, 0, 0, 0),LocalDateTime.of(2022, 4, 12, 0, 0, 0)));
         this.informacje.add(new Informacja("samochód","motoryzacja","szybki samochód","www.kompletnie_inny_link.com", LocalDateTime.of(2022, 5, 12, 0, 0, 0),LocalDateTime.of(2022, 6, 12, 0, 0, 0)));
     }
+    public void zapisz(Informacja info){
+        this.informacje.add(info);
+    }
 
     public List<Informacja> getInformacje() {
         return informacje;

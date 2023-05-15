@@ -24,6 +24,7 @@ public class InformacjaService {
             default -> lista.sort(java.util.Comparator.comparing(Informacja::getTytul));
         }
 
+
         if(Objects.equals(direction, "malejaco"))
         {
             java.util.Collections.reverse(lista);

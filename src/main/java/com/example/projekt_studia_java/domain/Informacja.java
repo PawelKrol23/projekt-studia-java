@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 //@ToString(includeFieldNames = false)
@@ -16,6 +17,7 @@ public class Informacja {
     private String link;
     private LocalDateTime dataDodania;
     private LocalDateTime dataPrzypomnienia;
+
 
     public String toString()
     {
@@ -30,5 +32,7 @@ public class Informacja {
             return tytul + " " + kategoria  + " " + tresc + " " + link + " " + data1 + " " + data2;
         }
     }
+
+
 
 }
