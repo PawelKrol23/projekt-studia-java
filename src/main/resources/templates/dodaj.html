@@ -17,7 +17,10 @@
     <input type="text" id="tytul" name="tytul" required><br><br>
 
     <label for="kategoria">Kategoria:</label>
-    <input type="text" id="kategoria" name="kategoria" required><br><br>
+    <!-- <input type="text" id="kategoria" name="kategoria" required><br><br>-->
+    <select id="kategoria" name="kategoria" required>
+        <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
+    </select><br><br>
 
     <label for="tresc">Tresc:</label>
     <input type="text" id="tresc" name="tresc" required><br><br>

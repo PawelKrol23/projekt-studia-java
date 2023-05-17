@@ -23,6 +23,19 @@ public class InformacjaRepository {
         this.informacje.add(info);
     }
 
+    public List<String> getKategorie()
+    {
+        List<String> kategorie = new ArrayList<>();
+        for(Informacja informacja : informacje)
+        {
+            String kategoria = informacja.getKategoria();
+            if (!kategorie.contains(kategoria))
+            {
+                kategorie.add(kategoria);
+            }
+        }
+        return kategorie;
+    }
     public List<Informacja> getInformacje() {
         return informacje;
     }

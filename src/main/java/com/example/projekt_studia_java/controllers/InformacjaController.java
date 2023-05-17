@@ -64,6 +64,7 @@ public class InformacjaController {
         Informacja informacja;
         informacja = new Informacja();
         model.addAttribute("informacje",informacja);
+        model.addAttribute("kategorie",informacjaRepository.getKategorie());
         return "dodaj";
     }
     @PostMapping("/dodaj")
@@ -73,12 +74,4 @@ public class InformacjaController {
         informacjaRepository.zapisz(informacja);
         return "redirect:/informacja";
     }
-
-
-   /* @GetMapping("/sort")
-    public String sortowanie(@RequestParam String typ, @RequestParam String direction)
-    {
-        serwis.sort(typ,direction);
-        return "redirect:/informacja/";
-    }*/
 }
