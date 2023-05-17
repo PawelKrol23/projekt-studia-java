@@ -25,6 +25,18 @@
     </select>
     <input type="submit">
 </form>
+<form action="/informacja/filter">
+    <label for="dataFiltrowania">Sortowanie:</label>
+    <select id="dataFiltrowania" name="dataFiltrowania">
+        <option value="2tyg" selected>2 tygodnie</option>
+        <option value="4tyg">miesiąc</option>
+        <option value="8tyg">2 miesiące</option>
+        <option value="24tyg">6 miesiący</option>
+        <option value="48tyg">rok</option>
+    </select>
+    <input type="submit">
+</form>
+
 <table class="table">
     <thead>
     <tr>
@@ -42,8 +54,8 @@
         <td th:text="${informacja.kategoria}"></td>
         <td th:text="${informacja.tresc}"></td>
         <td th:text="${informacja.link}"></td>
-        <td th:text="${informacja.dataDodania}"></td>
-        <td th:text="${informacja.dataPrzypomnienia}"></td>
+        <td th:text="${informacja.writeDataDodania()}"></td>
+        <td th:text="${informacja.writeDataPrzypomnienia()}"></td>
     </tr>
     </tbody>
 </table>

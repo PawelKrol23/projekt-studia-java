@@ -12,26 +12,43 @@ import java.time.LocalDateTime;
 //@ToString(includeFieldNames = false)
 public class Informacja {
     private String tytul;
-    private String kategoria;
+    private Kategoria kategoria;
     private String tresc;
     private String link;
     private LocalDateTime dataDodania;
     private LocalDateTime dataPrzypomnienia;
 
 
-    public String toString()
+    public String writeDataDodania()
     {
-        if(dataDodania == null || dataPrzypomnienia == null)
-        {
-            return tytul + " " + kategoria  + " " + tresc + " " + link;
+        int monthVal = dataDodania.getMonthValue();
+        String month;
+
+        if(monthVal <= 9) {
+            month = "0" + monthVal;
         }
-        else
-        {
-            String data1 = dataDodania.getDayOfMonth() + ":" + dataDodania.getMonthValue() + ":" + dataDodania.getYear();
-            String data2 = dataPrzypomnienia.getDayOfMonth() + ":" + dataPrzypomnienia.getMonthValue() + ":" + dataPrzypomnienia.getYear();
-            return tytul + " " + kategoria  + " " + tresc + " " + link + " " + data1 + " " + data2;
+        else {
+            month = String.valueOf(monthVal);
         }
+        return dataDodania.getDayOfMonth() + ":" + month + ":" + dataDodania.getYear();
     }
+
+    public String writeDataPrzypomnienia()
+    {
+        int monthVal = dataPrzypomnienia.getMonthValue();
+        String month;
+
+        if(monthVal <= 9) {
+            month = "0" + monthVal;
+        }
+        else {
+            month = String.valueOf(monthVal);
+        }
+        return dataPrzypomnienia.getDayOfMonth() + ":" + month + ":" + dataPrzypomnienia.getYear();
+    }
+
+
+
 
 
 

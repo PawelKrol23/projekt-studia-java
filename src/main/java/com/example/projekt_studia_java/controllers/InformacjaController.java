@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.projekt_studia_java.services.InformacjaService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/informacja")
@@ -25,7 +26,6 @@ public class InformacjaController {
     public String getAllData(Model model, @RequestParam(required = false) String typ, @RequestParam(required = false) String direction, HttpServletResponse response , HttpServletRequest request) {
         if(typ != null && direction != null)
         {
-
             Cookie ciacho_typ= new Cookie("typ",typ);
             Cookie ciacho_direction = new Cookie("direction",direction);
             ciacho_typ.setMaxAge(-1);
@@ -57,6 +57,13 @@ public class InformacjaController {
 
         }
         model.addAttribute("informacje", serwis.getInformacjaRepository().getInformacje());
+        return "informacja";
+    }
+    @GetMapping("/filter")
+    public String filter(Model model, @RequestParam String dataFiltrowania)
+    {
+        List<Informacja> lista = serwis.filter(dataFiltrowania);
+        model.addAttribute("informacje",lista);
         return "informacja";
     }
     @GetMapping("/dodaj")
