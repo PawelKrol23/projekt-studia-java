@@ -54,7 +54,6 @@ public class InformacjaController {
             {
                 serwis.sort(typ, direction);
             }
-
         }
         model.addAttribute("informacje", serwis.getInformacjaRepository().getInformacje());
         return "informacja";

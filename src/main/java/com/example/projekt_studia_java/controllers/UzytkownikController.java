@@ -1,7 +1,7 @@
 package com.example.projekt_studia_java.controllers;
 
 
-import com.example.projekt_studia_java.domain.Informacja;
+
 import com.example.projekt_studia_java.domain.Uzytkownik;
 import com.example.projekt_studia_java.repositories.UzytkownikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
 @RequestMapping("/uzytkownik")
@@ -23,6 +21,7 @@ public class UzytkownikController {
     @GetMapping
     public String getAllData(Model model)
     {
+        model.addAttribute("uzytkownicy",uzytkownikRepository.getUzytkownicy());
         return "uzytkownik";
     }
     @GetMapping("/zarejestruj")
@@ -34,7 +33,6 @@ public class UzytkownikController {
     }
     @PostMapping("/zarejestruj")
     public String dodajUzytkownika(@ModelAttribute Uzytkownik uzytkownik){
-
         uzytkownikRepository.zapisz(uzytkownik);
         return "redirect:/uzytkownik";
     }
@@ -43,7 +41,4 @@ public class UzytkownikController {
     {
         return "zaloguj";
     }
-
-
-
 }
