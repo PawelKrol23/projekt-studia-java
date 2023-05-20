@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@Builder
 public class Kategoria {
 
     @Id

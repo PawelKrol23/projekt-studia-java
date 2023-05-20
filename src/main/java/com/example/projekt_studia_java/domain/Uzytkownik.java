@@ -12,6 +12,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@Builder
 public class Uzytkownik {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
