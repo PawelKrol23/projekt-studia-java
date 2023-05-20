@@ -1,5 +1,6 @@
 package com.example.projekt_studia_java.domain;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -9,9 +10,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 //@ToString(includeFieldNames = false)
 public class Informacja {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
     private String tytul;
+    @ManyToOne
     private Kategoria kategoria;
     private String tresc;
     private String link;

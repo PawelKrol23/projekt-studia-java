@@ -1,8 +1,6 @@
 package com.example.projekt_studia_java.repositories;
 
 
-import com.example.projekt_studia_java.domain.Informacja;
-import com.example.projekt_studia_java.domain.Kategoria;
 import com.example.projekt_studia_java.domain.Uzytkownik;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +14,7 @@ public class UzytkownikRepository {
     public UzytkownikRepository()
     {
         this.uzytkownicy = new ArrayList<>();
-        this.uzytkownicy.add(new Uzytkownik("szef","szefu","admin","admin","mail@admina.pl",28));
+        this.uzytkownicy.add(new Uzytkownik(null,"szef","szefu","admin","admin","mail@admina.pl",28));
     }
     public void zapisz(Uzytkownik user){
         this.uzytkownicy.add(user);
