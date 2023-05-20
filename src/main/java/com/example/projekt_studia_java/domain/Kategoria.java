@@ -18,6 +18,7 @@ public class Kategoria {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String nazwa;
+    @Builder.Default
     @OneToMany(mappedBy = "kategoria")
     private List<Informacja> informacje = new ArrayList<>();
     public String toString()

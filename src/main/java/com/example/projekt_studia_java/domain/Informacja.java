@@ -2,7 +2,6 @@ package com.example.projekt_studia_java.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +23,6 @@ public class Informacja {
     private Kategoria kategoria;
     private String tresc;
     private String link;
-    @CreationTimestamp
     private LocalDateTime dataDodania;
     private LocalDateTime dataPrzypomnienia;
 
