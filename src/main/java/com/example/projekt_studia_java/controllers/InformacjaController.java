@@ -1,6 +1,7 @@
 package com.example.projekt_studia_java.controllers;
 
 import com.example.projekt_studia_java.domain.Informacja;
+import com.example.projekt_studia_java.domain.Kategoria;
 import com.example.projekt_studia_java.repositories.InformacjaRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import com.example.projekt_studia_java.services.InformacjaService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/informacja")
@@ -67,17 +69,21 @@ public class InformacjaController {
     }
     @GetMapping("/dodaj")
     public String formularzDodawaniaInformacji(Model model){
-        Informacja informacja;
-        informacja = new Informacja();
-        model.addAttribute("informacje",informacja);
         model.addAttribute("kategorie",informacjaRepository.getKategorie());
         return "dodaj";
     }
     @PostMapping("/dodaj")
-    public String dodajInformacja(@ModelAttribute Informacja informacja){
-        informacja.setDataDodania(LocalDateTime.now().withSecond(0).withNano(0));
-        informacja.setDataPrzypomnienia(LocalDateTime.of(2030,8,26,0,0,0));
-        informacjaRepository.zapisz(informacja);
+    public String dodajInformacja(@RequestParam String tytul, @RequestParam String kategoria, @RequestParam String tresc, @RequestParam String link){
+        List<Kategoria> lista = informacjaRepository.getKategorie();
+        Kategoria kategoria1 = null;
+        for(Kategoria element : lista)
+        {
+            if(Objects.equals(element.getNazwa(), kategoria))
+            {
+                kategoria1 = element;
+            }
+        }
+        informacjaRepository.zapisz(new Informacja(null,tytul,kategoria1,tresc,link,LocalDateTime.now().withSecond(0).withNano(0),LocalDateTime.of(2030,8,26,0,0,0)));
         return "redirect:/informacja";
     }
 }
