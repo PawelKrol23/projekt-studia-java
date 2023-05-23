@@ -12,7 +12,7 @@
         <h3>Wartości atrybutów:</h3>
     </div>
 
-<form action="/informacja">
+<form action="/informacja/filter">
     <label for="typ">Sortowanie:</label>
     <select id="typ" name="typ">
         <option value="alfabetycznie" selected>alfabetycznie</option>
@@ -23,16 +23,14 @@
         <option value="rosnaco" selected>rosnąco</option>
         <option value="malejaco">malejąco</option>
     </select>
-    <input type="submit">
-</form>
-<form action="/informacja/filter">
     <label for="dataFiltrowania">Filtrowanie:</label>
     <select id="dataFiltrowania" name="dataFiltrowania">
-        <option value="2tyg" selected>2 tygodnie</option>
-        <option value="4tyg">miesiąc</option>
+        <option value="2tyg">2 tygodnie</option>
+        <option value="4tyg">1 miesiąc</option>
         <option value="8tyg">2 miesiące</option>
         <option value="24tyg">6 miesiący</option>
-        <option value="48tyg">rok</option>
+        <option value="48tyg">1 rok</option>
+        <option value="nigdy" selected>nigdy</option>
     </select>
     <input type="submit">
 </form>

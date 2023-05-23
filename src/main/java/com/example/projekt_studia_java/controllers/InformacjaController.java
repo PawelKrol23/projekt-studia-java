@@ -26,44 +26,24 @@ public class InformacjaController {
 
     @GetMapping
     public String getAllData(Model model, @RequestParam(required = false) String typ, @RequestParam(required = false) String direction, HttpServletResponse response , HttpServletRequest request) {
-        if(typ != null && direction != null)
-        {
-            Cookie ciacho_typ= new Cookie("typ",typ);
-            Cookie ciacho_direction = new Cookie("direction",direction);
-            ciacho_typ.setMaxAge(-1);
-            ciacho_direction.setMaxAge(-1);
-            response.addCookie(ciacho_typ);
-            response.addCookie(ciacho_direction);
-            serwis.sort(typ,direction);
-        }
-        else if(request.getCookies()!=null)
-        {
-            String nazwa;
-            Cookie[] tablica = request.getCookies();
-            for(var cookie: tablica)
-            {
-                nazwa=cookie.getName();
-                if(nazwa.equals("typ"))
-                {
-                    typ=cookie.getValue();
-                }
-                if(nazwa.equals("direction"))
-                {
-                    direction=cookie.getValue();
-                }
-            }
-            if(typ != null && direction != null)
-            {
-                serwis.sort(typ, direction);
-            }
-        }
         model.addAttribute("informacje", serwis.getInformacjaRepository().getInformacje());
         return "informacja";
     }
     @GetMapping("/filter")
-    public String filter(Model model, @RequestParam String dataFiltrowania)
+    public String filter(Model model, @RequestParam String dataFiltrowania, @RequestParam String typ, @RequestParam String direction, HttpServletResponse response , HttpServletRequest request)
     {
+        Cookie ciacho_typ= new Cookie("typ",typ);
+        Cookie ciacho_direction = new Cookie("direction",direction);
+        Cookie ciacho_dataFiltrowania = new Cookie("dataFiltrowania",dataFiltrowania);
+        ciacho_typ.setMaxAge(-1);
+        ciacho_direction.setMaxAge(-1);
+        ciacho_dataFiltrowania.setMaxAge(-1);
+        response.addCookie(ciacho_typ);
+        response.addCookie(ciacho_direction);
+        response.addCookie(ciacho_dataFiltrowania);
+
         List<Informacja> lista = serwis.filter(dataFiltrowania);
+        lista = serwis.sort(typ, direction,lista);
         model.addAttribute("informacje",lista);
         return "informacja";
     }
