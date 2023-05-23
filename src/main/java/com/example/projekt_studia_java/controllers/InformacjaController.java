@@ -3,14 +3,19 @@ package com.example.projekt_studia_java.controllers;
 import com.example.projekt_studia_java.domain.Informacja;
 import com.example.projekt_studia_java.domain.Kategoria;
 import com.example.projekt_studia_java.repositories.InformacjaRepository;
+import com.example.projekt_studia_java.services.InformacjaService;
+import com.example.projekt_studia_java.services.KategoriaService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import com.example.projekt_studia_java.services.InformacjaService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,11 +23,14 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/informacja")
+@RequiredArgsConstructor
 public class InformacjaController {
     @Autowired
     InformacjaService serwis;
     @Autowired
     InformacjaRepository informacjaRepository; //Static error z .zapisz
+
+    private final KategoriaService kategoriaService;
 
     @GetMapping
     public String getAllData(Model model, @RequestParam(required = false) String typ, @RequestParam(required = false) String direction, HttpServletResponse response , HttpServletRequest request) {
@@ -69,12 +77,12 @@ public class InformacjaController {
     }
     @GetMapping("/dodaj")
     public String formularzDodawaniaInformacji(Model model){
-        model.addAttribute("kategorie",informacjaRepository.getKategorie());
+        model.addAttribute("kategorie",kategoriaService.getKategorie());
         return "dodaj";
     }
     @PostMapping("/dodaj")
     public String dodajInformacja(@RequestParam String tytul, @RequestParam String kategoria, @RequestParam String tresc, @RequestParam String link){
-        List<Kategoria> lista = informacjaRepository.getKategorie();
+        List<Kategoria> lista = kategoriaService.getKategorie();
         Kategoria kategoria1 = null;
         for(Kategoria element : lista)
         {
