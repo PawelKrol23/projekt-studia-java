@@ -2,14 +2,12 @@ package com.example.projekt_studia_java.services;
 
 import com.example.projekt_studia_java.domain.Informacja;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
-import com.example.projekt_studia_java.repositories.InformacjaRepository;
 import com.example.projekt_studia_java.repositories.InformacjaRepositoryJPA;
-import com.example.projekt_studia_java.repositories.KategoriaRepositoryJPA;
+import com.example.projekt_studia_java.repositories.KategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -17,9 +15,8 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class InformacjaService {
-    private final KategoriaRepositoryJPA kategoriaRepositoryJPA;
+    private final KategoriaRepository kategoriaRepository;
     private final InformacjaRepositoryJPA informacjaRepositoryJPA;
-    private final InformacjaRepository informacjaRepository;
 
     public List<InformacjaEntity> getInformacje() {
         return informacjaRepositoryJPA.findAll();
@@ -30,7 +27,7 @@ public class InformacjaService {
                 .tresc(informacja.getTresc())
                 .link(informacja.getLink())
                 .tytul(informacja.getTytul())
-                .kategoria(kategoriaRepositoryJPA.findByNazwa(informacja.getKategoria()))
+                .kategoria(kategoriaRepository.findByNazwa(informacja.getKategoria()))
                 .dataPrzypomnienia(LocalDateTime.now().plusYears(1))
                 .build();
 
@@ -39,9 +36,9 @@ public class InformacjaService {
 
     public List<InformacjaEntity> sort(String typ, String direction, List<InformacjaEntity> lista) {
         switch (typ) {
-            case "data" -> lista.sort(java.util.Comparator.comparing(InformacjaEntity::getDataDodania));
+            case "data" -> lista.sort(Comparator.comparing(InformacjaEntity::getDataDodania));
             case "kategoria" -> lista.sort(Comparator.comparing(info -> info.getKategoria().getNazwa()));
-            default -> lista.sort(java.util.Comparator.comparing(InformacjaEntity::getTytul));
+            default -> lista.sort(Comparator.comparing(InformacjaEntity::getTytul));
         }
 
         if(Objects.equals(direction, "malejaco"))
@@ -50,13 +47,10 @@ public class InformacjaService {
         }
         return lista;
     }
+
     public List<InformacjaEntity> filter(String dataFiltrowania)
     {
-        List<InformacjaEntity> lista = informacjaRepository.getInformacje();
-        List<InformacjaEntity> listaPoFiltrowaniu = new ArrayList<>();
-
         LocalDateTime czas = LocalDateTime.now();
-
         switch (dataFiltrowania)
         {
             case "2tyg" -> czas = czas.minusWeeks(2);
@@ -67,13 +61,6 @@ public class InformacjaService {
             case "nigdy" -> czas = czas.minusYears(100);
         }
 
-        for(InformacjaEntity element : lista)
-        {
-            if(element.getDataDodania().isAfter(czas) || element.getDataDodania().isEqual(czas))
-            {
-                listaPoFiltrowaniu.add(element);
-            }
-        }
-        return listaPoFiltrowaniu;
+        return informacjaRepositoryJPA.findByDataDodaniaAfter(czas);
     }
 }
