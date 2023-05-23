@@ -1,25 +1,47 @@
 package com.example.projekt_studia_java.services;
 
 import com.example.projekt_studia_java.domain.Informacja;
+import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.repositories.InformacjaRepository;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.projekt_studia_java.repositories.InformacjaRepositoryJPA;
+import com.example.projekt_studia_java.repositories.KategoriaRepositoryJPA;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 @Service
-@Getter
+@RequiredArgsConstructor
 public class InformacjaService {
-    @Autowired
-    InformacjaRepository informacjaRepository;
+    private final KategoriaRepositoryJPA kategoriaRepositoryJPA;
+    private final InformacjaRepositoryJPA informacjaRepositoryJPA;
+    private final InformacjaRepository informacjaRepository;
 
-    public List<Informacja> sort(String typ, String direction, List<Informacja> lista) {
+    public List<InformacjaEntity> getInformacje() {
+        return informacjaRepositoryJPA.findAll();
+    }
+
+    public void zapisz(Informacja informacja) {
+        InformacjaEntity doZapisania = InformacjaEntity.builder()
+                .tresc(informacja.getTresc())
+                .link(informacja.getLink())
+                .tytul(informacja.getTytul())
+                .kategoria(kategoriaRepositoryJPA.findByNazwa(informacja.getKategoria()))
+                .dataPrzypomnienia(LocalDateTime.now().plusYears(1))
+                .build();
+
+        informacjaRepositoryJPA.save(doZapisania);
+    }
+
+    public List<InformacjaEntity> sort(String typ, String direction, List<InformacjaEntity> lista) {
         switch (typ) {
-            case "data" -> lista.sort(java.util.Comparator.comparing(Informacja::getDataDodania));
-            case "kategoria" -> lista.sort((info1, info2) -> info1.getKategoria().getNazwa().compareTo(info2.getKategoria().getNazwa()));
-            default -> lista.sort(java.util.Comparator.comparing(Informacja::getTytul));
+            case "data" -> lista.sort(java.util.Comparator.comparing(InformacjaEntity::getDataDodania));
+            case "kategoria" -> lista.sort(Comparator.comparing(info -> info.getKategoria().getNazwa()));
+            default -> lista.sort(java.util.Comparator.comparing(InformacjaEntity::getTytul));
         }
 
         if(Objects.equals(direction, "malejaco"))
@@ -28,10 +50,10 @@ public class InformacjaService {
         }
         return lista;
     }
-    public List<Informacja> filter(String dataFiltrowania)
+    public List<InformacjaEntity> filter(String dataFiltrowania)
     {
-        List<Informacja> lista = informacjaRepository.getInformacje();
-        List<Informacja> listaPoFiltrowaniu = new ArrayList<>();
+        List<InformacjaEntity> lista = informacjaRepository.getInformacje();
+        List<InformacjaEntity> listaPoFiltrowaniu = new ArrayList<>();
 
         LocalDateTime czas = LocalDateTime.now();
 
@@ -45,7 +67,7 @@ public class InformacjaService {
             case "nigdy" -> czas = czas.minusYears(100);
         }
 
-        for(Informacja element : lista)
+        for(InformacjaEntity element : lista)
         {
             if(element.getDataDodania().isAfter(czas) || element.getDataDodania().isEqual(czas))
             {

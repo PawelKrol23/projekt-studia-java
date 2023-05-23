@@ -1,7 +1,7 @@
 package com.example.projekt_studia_java.repositories;
 
+import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.domain.Kategoria;
-import com.example.projekt_studia_java.domain.Informacja;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class InformacjaRepository {
-    private final List<Informacja> informacje;
+    private final List<InformacjaEntity> informacje;
     private final List<Kategoria> kategorie;
 
     public InformacjaRepository() {
@@ -28,12 +28,12 @@ public class InformacjaRepository {
         this.kategorie.add(new Kategoria(null,"gry i rozrywka", null));
         this.kategorie.add(new Kategoria(null,"dom i ogród", null));
 
-        this.informacje.add(new Informacja(null,"piłka",kategorie.get(1),"okrągła piłka","www.link.com", LocalDateTime.of(2023, 1, 12, 0, 0, 0),LocalDateTime.of(2021, 6, 12, 0, 0, 0)));
-        this.informacje.add(new Informacja(null,"obraz",kategorie.get(5),"ładny obraz","www.inny_link.com", LocalDateTime.of(2023, 4, 12, 0, 0, 0),LocalDateTime.of(2023, 6, 12, 0, 0, 0)));
-        this.informacje.add(new Informacja(null,"batonik",kategorie.get(2),"przyszny batonik","www.zupełnie_inny_link.com", LocalDateTime.of(2023, 4, 30, 0, 0, 0),LocalDateTime.of(2022, 4, 12, 0, 0, 0)));
-        this.informacje.add(new Informacja(null,"samochód",kategorie.get(0),"szybki samochód","www.kompletnie_inny_link.com", LocalDateTime.of(2022, 5, 12, 0, 0, 0),LocalDateTime.of(2022, 6, 12, 0, 0, 0)));
+        this.informacje.add(new InformacjaEntity(null,"piłka",kategorie.get(1),"okrągła piłka","www.link.com", LocalDateTime.of(2023, 1, 12, 0, 0, 0),LocalDateTime.of(2021, 6, 12, 0, 0, 0)));
+        this.informacje.add(new InformacjaEntity(null,"obraz",kategorie.get(5),"ładny obraz","www.inny_link.com", LocalDateTime.of(2023, 4, 12, 0, 0, 0),LocalDateTime.of(2023, 6, 12, 0, 0, 0)));
+        this.informacje.add(new InformacjaEntity(null,"batonik",kategorie.get(2),"przyszny batonik","www.zupełnie_inny_link.com", LocalDateTime.of(2023, 4, 30, 0, 0, 0),LocalDateTime.of(2022, 4, 12, 0, 0, 0)));
+        this.informacje.add(new InformacjaEntity(null,"samochód",kategorie.get(0),"szybki samochód","www.kompletnie_inny_link.com", LocalDateTime.of(2022, 5, 12, 0, 0, 0),LocalDateTime.of(2022, 6, 12, 0, 0, 0)));
     }
-    public void zapisz(Informacja info){
+    public void zapisz(InformacjaEntity info){
         this.informacje.add(info);
     }
 
@@ -41,7 +41,7 @@ public class InformacjaRepository {
     {
         return kategorie;
     }
-    public List<Informacja> getInformacje() {
+    public List<InformacjaEntity> getInformacje() {
         return informacje;
     }
 }

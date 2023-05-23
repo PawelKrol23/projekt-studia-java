@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KategoriaRepositoryJPA extends JpaRepository<Kategoria, Integer> {
+    Kategoria findByNazwa(String nazwa);
 }

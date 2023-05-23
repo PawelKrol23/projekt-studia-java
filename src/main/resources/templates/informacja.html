@@ -47,13 +47,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="informacja: ${informacje}">
-        <td th:text="${informacja.tytul}"></td>
-        <td th:text="${informacja.kategoria}"></td>
-        <td th:text="${informacja.tresc}"></td>
-        <td th:text="${informacja.link}"></td>
-        <td th:text="${informacja.writeDataDodania()}"></td>
-        <td th:text="${informacja.writeDataPrzypomnienia()}"></td>
+    <tr th:each="informacjaEntity: ${informacje}">
+        <td th:text="${informacjaEntity.tytul}"></td>
+        <td th:text="${informacjaEntity.kategoria}"></td>
+        <td th:text="${informacjaEntity.tresc}"></td>
+        <td th:text="${informacjaEntity.link}"></td>
+        <td th:text="${informacjaEntity.writeDataDodania()}"></td>
+        <td th:text="${informacjaEntity.writeDataPrzypomnienia()}"></td>
     </tr>
     </tbody>
 </table>

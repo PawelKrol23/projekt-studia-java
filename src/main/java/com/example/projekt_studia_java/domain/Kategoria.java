@@ -1,5 +1,6 @@
 package com.example.projekt_studia_java.domain;
 
+import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Entity
 @Builder
 public class Kategoria {
@@ -20,7 +20,7 @@ public class Kategoria {
     private String nazwa;
     @Builder.Default
     @OneToMany(mappedBy = "kategoria")
-    private List<Informacja> informacje = new ArrayList<>();
+    private List<InformacjaEntity> informacje = new ArrayList<>();
     public String toString()
     {
         return nazwa;
