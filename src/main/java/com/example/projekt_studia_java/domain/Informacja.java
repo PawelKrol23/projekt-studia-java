@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Informacja {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String tytul;
     @ManyToOne
@@ -54,10 +54,5 @@ public class Informacja {
         }
         return dataPrzypomnienia.getDayOfMonth() + ":" + month + ":" + dataPrzypomnienia.getYear();
     }
-
-
-
-
-
 
 }

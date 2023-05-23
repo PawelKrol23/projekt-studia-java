@@ -15,7 +15,7 @@ import java.util.List;
 public class Kategoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nazwa;
     @Builder.Default

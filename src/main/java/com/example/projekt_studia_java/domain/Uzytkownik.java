@@ -22,6 +22,6 @@ public class Uzytkownik {
     private String login;
     private String haslo;
     private String mail;
-    private int wiek;
+    private Integer wiek;
 
 }
