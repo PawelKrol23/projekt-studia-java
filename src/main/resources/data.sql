@@ -20,3 +20,7 @@ INSERT INTO Informacja (data_dodania, data_przypomnienia, link, tresc, tytul, ka
 VALUES ('2023-04-30 00:00:00', '2022-04-12 00:00:00', 'www.zupełnie_inny_link.com', 'przyszny batonik', 'batonik', SELECT id FROM kategoria WHERE nazwa = 'jedzenie');
 INSERT INTO Informacja (data_dodania, data_przypomnienia, link, tresc, tytul, kategoria_id)
 VALUES ('2022-05-12 00:00:00', '2022-06-12 00:00:00', 'www.kompletnie_inny_link.com', 'szybki samochód', 'samochód', SELECT id FROM kategoria WHERE nazwa = 'motoryzacja');
+
+-- Uzytkownicy
+INSERT INTO Uzytkownik (imie, nazwisko, login, haslo, mail, wiek)
+VALUES ('szef', 'szefu', 'admin', 'admin', 'mail@admina.pl', 28);

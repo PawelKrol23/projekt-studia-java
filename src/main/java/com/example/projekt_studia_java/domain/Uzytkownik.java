@@ -13,7 +13,7 @@ import lombok.*;
 @Builder
 public class Uzytkownik {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String imie;
     private String nazwisko;
