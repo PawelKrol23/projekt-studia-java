@@ -1,6 +1,7 @@
 package com.example.projekt_studia_java.controllers;
 
 import com.example.projekt_studia_java.domain.Informacja;
+import com.example.projekt_studia_java.domain.Kategoria;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.services.InformacjaService;
 import com.example.projekt_studia_java.services.KategoriaService;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/informacja")
@@ -22,18 +23,16 @@ public class InformacjaController {
     private final KategoriaService kategoriaService;
 
     @GetMapping
-    public String getAllData(Model model,
-                             @RequestParam(required = false) String typ,
-                             @RequestParam(required = false) String direction,
-                             HttpServletResponse response,
-                             HttpServletRequest request)
+    public String getAllData(Model model)
     {
-        model.addAttribute("informacje", informacjaService.getInformacje());
+        model.addAttribute("kategorie",informacjaService.sortKategoria());
+        model.addAttribute("informacje",informacjaService.getInformacje());
         return "informacja";
     }
     @GetMapping("/filter")
     public String filter(Model model,
                          @RequestParam String dataFiltrowania,
+                         @RequestParam String kategoriaFiltrowania,
                          @RequestParam String typ,
                          @RequestParam String direction,
                          HttpServletResponse response,
@@ -49,8 +48,10 @@ public class InformacjaController {
         response.addCookie(ciacho_direction);
         response.addCookie(ciacho_dataFiltrowania);
 
-        List<InformacjaEntity> lista = informacjaService.filter(dataFiltrowania);
+        List<InformacjaEntity> lista = informacjaService.filter(dataFiltrowania, kategoriaFiltrowania);
         lista = informacjaService.sort(typ, direction,lista);
+
+        model.addAttribute("kategorie",informacjaService.sortKategoria());
         model.addAttribute("informacje",lista);
         return "informacja";
     }

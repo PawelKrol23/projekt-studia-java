@@ -20,8 +20,8 @@
         <option value="data">po dacie</option>
     </select>
     <select id="direction" name="direction">
-        <option value="rosnaco" selected>rosnąco</option>
-        <option value="malejaco">malejąco</option>
+        <option value="malejaco" selected>malejąco</option>
+        <option value="rosnaco">rosnąco</option>
     </select>
     <label for="dataFiltrowania">Filtrowanie:</label>
     <select id="dataFiltrowania" name="dataFiltrowania">
@@ -30,8 +30,19 @@
         <option value="8tyg">2 miesiące</option>
         <option value="24tyg">6 miesiący</option>
         <option value="48tyg">1 rok</option>
-        <option value="nigdy" selected>nigdy</option>
+        <option value="nigdy" selected>brak</option>
     </select>
+    <!-- >
+        <tr th:each="kategoriaEntity: ${kategorie}">
+            <input type="checkbox" th:name="${kategoriaEntity}" th:value="${kategoriaEntity}"/><br>
+      <!-->
+    <select id="kategoriaFiltrowaniaa" name="kategoriaFiltrowania">
+        <option value="brak" selected>brak</option>
+        <tr th:each="kategoriaEntity: ${kategorie}">
+            <option th:value="${kategoriaEntity}"><p th:text = "${kategoriaEntity}"></p></option>
+        </tr>
+    </select>
+
     <input type="submit">
 </form>
 
