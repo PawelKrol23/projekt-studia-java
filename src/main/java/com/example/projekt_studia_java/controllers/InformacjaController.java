@@ -8,9 +8,11 @@ import com.example.projekt_studia_java.services.KategoriaService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -58,10 +60,18 @@ public class InformacjaController {
     @GetMapping("/dodaj")
     public String formularzDodawaniaInformacji(Model model) {
         model.addAttribute("kategorie",kategoriaService.getKategorie());
+        model.addAttribute("informacja", new Informacja());
         return "dodaj";
     }
     @PostMapping("/dodaj")
-    public String dodajInformacja(@ModelAttribute Informacja informacja) {
+    public String dodajInformacja(@Valid @ModelAttribute("informacja") Informacja informacja, BindingResult result, Model model) {
+        if(result.hasErrors())
+        {
+            System.out.println(result.getErrorCount());
+            result.getAllErrors().forEach(el->System.out.println(el));
+            model.addAttribute("kategorie",kategoriaService.getKategorie());
+            return "dodaj";
+        }
         informacjaService.zapisz(informacja);
         return "redirect:/informacja";
     }

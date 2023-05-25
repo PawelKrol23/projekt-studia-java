@@ -12,24 +12,19 @@
         <h3>Dodawanie nowego elementu:</h3>
     </div>
 
-<form action="/informacja/dodaj" method="post">
-    <label for="tytul">Nazwa:</label>
-    <input type="text" id="tytul" name="tytul" required><br><br>
+    <form action="#" th:action="@{/informacja/dodaj}" th:object="${informacja}" method="post">
+        <p>Tytul: <input type="text" th:field="*{tytul}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tytul')}" th:errors="*{tytul}">Name Error </span></FONT></em>
+        <p>Tresc: <input type="text" th:field="*{tresc}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tresc')}" th:errors="*{tresc}">Name Error </span></FONT></em>
 
-    <label for="kategoria">Kategoria:</label>
-    <!-- <input type="text" id="kategoria" name="kategoria" required><br><br>-->
-    <select id="kategoria" name="kategoria" required>
-        <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
-    </select><br><br>
+        <p>Link: <input type="text" th:field="*{link}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('link')}" th:errors="*{link}">Name Error </span></FONT></em>
+        <p>Kategoria:
+        <select id="kategoria" name="kategoria" >
+           <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
+        </select><br><br></p>
+        <input type="submit" value="Dodaj">
 
-    <label for="tresc">Tresc:</label>
-    <input type="text" id="tresc" name="tresc" required><br><br>
 
-    <label for="link">Link:</label>
-    <input type="text" id="link" name="link" required><br><br>
 
-    <input type="submit" value="Dodaj">
-</form>
 </div>
 </body>
 </html>

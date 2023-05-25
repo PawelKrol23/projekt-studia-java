@@ -2,6 +2,7 @@ package com.example.projekt_studia_java.domain;
 
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Kategoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nazwa;
     @Builder.Default
     @OneToMany(mappedBy = "kategoria")
