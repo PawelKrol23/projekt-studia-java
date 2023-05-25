@@ -17,8 +17,6 @@ public class InformacjaService {
     private final KategoriaRepository kategoriaRepository;
     private final InformacjaRepositoryJPA informacjaRepositoryJPA;
 
-    private final KategoriaService kategoriaService;
-
     public List<InformacjaEntity> getInformacje() {
         return informacjaRepositoryJPA.findAll();
     }
@@ -64,25 +62,15 @@ public class InformacjaService {
     }
     public List<Kategoria> sortKategoria()
     {
-        List<Kategoria> listaKategorji = kategoriaService.getKategorie();
-        List<InformacjaEntity> listaInformacji = getInformacje();
-        Map<Kategoria,Integer> mapa = new HashMap<>();
-        for(Kategoria kategoria : listaKategorji)
-            mapa.put(kategoria,0);
-        for(InformacjaEntity informacja : listaInformacji)
-            mapa.replace(informacja.getKategoria(),mapa.get(informacja.getKategoria())+1);
+        List<Kategoria> kategorie = kategoriaRepository.findAll();
 
-        List<Map.Entry<Kategoria, Integer>> lista = new ArrayList<>(mapa.entrySet());
-        lista.sort((entry1, entry2) -> CharSequence.compare(entry1.getKey().getNazwa(), entry2.getKey().getNazwa()));
-        java.util.Collections.reverse(lista);
-        lista.sort((entry1, entry2) -> Integer.compare(entry1.getValue(), entry2.getValue()));
+        kategorie.sort((kat1, kat2) -> CharSequence.compare(kat1.getNazwa(), kat2.getNazwa()));
+        java.util.Collections.reverse(kategorie);
 
-        listaKategorji.clear();
+        kategorie.sort(Comparator.comparingInt(kat -> kat.getInformacje().size()));
+        java.util.Collections.reverse(kategorie);
 
-        for(Map.Entry<Kategoria,Integer> entry : lista)
-            listaKategorji.add(0, entry.getKey());
-
-        return listaKategorji;
+        return kategorie;
     }
 
     public List<InformacjaEntity> filter(String dataFiltrowania, String kategoriaFiltrowania)
