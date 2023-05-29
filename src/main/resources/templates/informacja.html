@@ -7,9 +7,13 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
+
 <div class="container-xl">
+    <div class="container-fluid d-flex justify-content-center">
+        <h1>StoreEverything</h1>
+    </div>
     <div class="mx-auto p-2">
-        <h3>Wartości atrybutów:</h3>
+        <h2>Wartości atrybutów:</h2>
     </div>
 
 <form action="/informacja/filter">
@@ -19,6 +23,7 @@
         <option value="kategoria">po kategorii</option>
         <option value="data">po dacie</option>
     </select>
+    <label for="direction">Kierunek:</label>
     <select id="direction" name="direction">
         <option value="malejaco" selected>malejąco</option>
         <option value="rosnaco">rosnąco</option>
@@ -36,14 +41,14 @@
         <tr th:each="kategoriaEntity: ${kategorie}">
             <input type="checkbox" th:name="${kategoriaEntity}" th:value="${kategoriaEntity}"/><br>
       <!-->
-    <select id="kategoriaFiltrowaniaa" name="kategoriaFiltrowania">
+    <label for="kategoriaFiltrowania">Kategoria:</label>
+    <select id="kategoriaFiltrowania" name="kategoriaFiltrowania">
         <option value="brak" selected>brak</option>
         <tr th:each="kategoriaEntity: ${kategorie}">
             <option th:value="${kategoriaEntity}"><p th:text = "${kategoriaEntity}"></p></option>
         </tr>
     </select>
-
-    <input type="submit">
+    <input type="submit" value="Prześlij">
 </form>
 
 <table class="table">
