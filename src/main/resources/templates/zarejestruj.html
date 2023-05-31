@@ -7,11 +7,13 @@
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<div th:insert="commons :: header"></div>
 <div class="container-xl">
   <div class="mx-auto p-2">
     <h3>Zarejestruj</h3>
   </div>
-  <form action="#" th:action="@{/uzytkownik/zarejestruj}" th:object="${newUzytkownik}" method="post">
+  <form th:action="@{/uzytkownik/zarejestruj}" th:object="${newUzytkownik}" method="post">
     <p>Imie: <input type="text" th:field="*{imie}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('imie')}" th:errors="*{imie}">Name Error </span></FONT></em>
     <p>Nazwisko: <input type="text" th:field="*{nazwisko}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}">Name Error </span></FONT></em>
     <p>Haslo: <input type="text" th:field="*{haslo}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}">Name Error </span></FONT></em>
