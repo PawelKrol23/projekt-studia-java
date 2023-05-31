@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<div th:insert="commons :: header"></div>
+<div th:insert="~{commons :: header}"></div>
+<div class="container-xl" th:insert="~{commons :: navbar}"></div>
 <div class="container-xl">
   <div class="mx-auto p-2">
     <h3>Zarejestruj</h3>
