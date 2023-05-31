@@ -3,7 +3,7 @@ package com.example.projekt_studia_java.services;
 import com.example.projekt_studia_java.domain.Informacja;
 import com.example.projekt_studia_java.domain.Kategoria;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
-import com.example.projekt_studia_java.repositories.InformacjaRepositoryJPA;
+import com.example.projekt_studia_java.repositories.InformacjaRepository;
 import com.example.projekt_studia_java.repositories.KategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ import java.util.*;
 @RequiredArgsConstructor
 public class InformacjaService {
     private final KategoriaRepository kategoriaRepository;
-    private final InformacjaRepositoryJPA informacjaRepositoryJPA;
+    private final InformacjaRepository iinformacjaRepository;
 
     public List<InformacjaEntity> getInformacje() {
-        return informacjaRepositoryJPA.findAll();
+        return iinformacjaRepository.findAll();
     }
 
     public void zapisz(Informacja informacja) {
@@ -30,7 +30,7 @@ public class InformacjaService {
                 .dataPrzypomnienia(LocalDateTime.now().plusYears(1))
                 .build();
 
-        informacjaRepositoryJPA.save(doZapisania);
+        iinformacjaRepository.save(doZapisania);
     }
 
     public List<InformacjaEntity> sort(String typ, String direction, List<InformacjaEntity> lista) {
@@ -86,7 +86,7 @@ public class InformacjaService {
             case "nigdy" -> czas = czas.minusYears(100);
         }
 
-        List<InformacjaEntity> lista = informacjaRepositoryJPA.findByDataDodaniaAfter(czas);
+        List<InformacjaEntity> lista = iinformacjaRepository.findByDataDodaniaAfter(czas);
 
         if(!kategoriaFiltrowania.equals("brak"))
             lista.removeIf(informacja -> !informacja.getKategoria().getNazwa().equals(kategoriaFiltrowania));

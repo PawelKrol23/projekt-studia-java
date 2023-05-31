@@ -1,27 +1,10 @@
 package com.example.projekt_studia_java.repositories;
 
-
 import com.example.projekt_studia_java.domain.Uzytkownik;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Repository
-public class UzytkownikRepository {
-    private final List<Uzytkownik> uzytkownicy;
+public interface UzytkownikRepository extends JpaRepository<Uzytkownik, Integer> {
 
-    public UzytkownikRepository()
-    {
-        this.uzytkownicy = new ArrayList<>();
-        this.uzytkownicy.add(new Uzytkownik(null,"szef","szefu","admin","admin","mail@admina.pl",28));
-    }
-    public void zapisz(Uzytkownik user){
-        this.uzytkownicy.add(user);
-    }
-
-    public List<Uzytkownik> getUzytkownicy()
-    {
-        return uzytkownicy;
-    }
 }
