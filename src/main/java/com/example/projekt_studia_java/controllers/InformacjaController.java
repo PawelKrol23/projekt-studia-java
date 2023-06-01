@@ -1,7 +1,6 @@
 package com.example.projekt_studia_java.controllers;
 
 import com.example.projekt_studia_java.domain.Informacja;
-import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.services.InformacjaService;
 import com.example.projekt_studia_java.services.KategoriaService;
 import jakarta.servlet.http.Cookie;
@@ -14,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-
 @Controller
 @RequestMapping("/informacja")
 @RequiredArgsConstructor
@@ -24,36 +21,87 @@ public class InformacjaController {
     private final KategoriaService kategoriaService;
 
     @GetMapping
-    public String getAllData(Model model)
-    {
-        model.addAttribute("kategorie",informacjaService.sortKategoria());
-        model.addAttribute("informacje",informacjaService.getInformacje());
-        return "informacja";
-    }
-    @GetMapping("/filter")
-    public String filter(Model model,
-                         @RequestParam String dataFiltrowania,
-                         @RequestParam String kategoriaFiltrowania,
-                         @RequestParam String typ,
-                         @RequestParam String direction,
+    public String getData(Model model,
+                         @RequestParam(required = false) String dataFiltrowania,
+                         @RequestParam(required = false) String kategoriaFiltrowania,
+                         @RequestParam(required = false) String typ,
+                         @RequestParam(required = false) String direction,
                          HttpServletResponse response,
                          HttpServletRequest request)
     {
-        Cookie ciacho_typ= new Cookie("typ",typ);
-        Cookie ciacho_direction = new Cookie("direction",direction);
-        Cookie ciacho_dataFiltrowania = new Cookie("dataFiltrowania",dataFiltrowania);
-        ciacho_typ.setMaxAge(-1);
-        ciacho_direction.setMaxAge(-1);
-        ciacho_dataFiltrowania.setMaxAge(-1);
-        response.addCookie(ciacho_typ);
-        response.addCookie(ciacho_direction);
-        response.addCookie(ciacho_dataFiltrowania);
+        // Ustaw ciasteczka do responsa
+        if(typ != null) {
+            Cookie cookie = new Cookie("typ", typ);
+            cookie.setMaxAge(-1);
+            cookie.setPath("/informacja");
+            response.addCookie(cookie);
+        }
 
-        List<InformacjaEntity> lista = informacjaService.filter(dataFiltrowania, kategoriaFiltrowania);
-        lista = informacjaService.sort(typ, direction,lista);
+        if(direction != null) {
+            Cookie cookie = new Cookie("direction", direction);
+            cookie.setMaxAge(-1);
+            cookie.setPath("/informacja");
+            response.addCookie(cookie);
+        }
 
-        model.addAttribute("kategorie",informacjaService.sortKategoria());
-        model.addAttribute("informacje",lista);
+        if(dataFiltrowania != null) {
+            Cookie cookie = new Cookie("dataFiltrowania", dataFiltrowania);
+            cookie.setMaxAge(-1);
+            cookie.setPath("/informacja");
+            response.addCookie(cookie);
+        }
+
+        if(kategoriaFiltrowania != null) {
+            Cookie cookie = new Cookie("kategoriaFiltrowania", kategoriaFiltrowania);
+            cookie.setMaxAge(-1);
+            cookie.setPath("/informacja");
+            response.addCookie(cookie);
+        }
+
+        // Odczytaj ciasteczka, jeżeli nie zostały podane
+        Cookie[] cookies = request.getCookies() == null ? new Cookie[0] : request.getCookies();
+        for(var cookie : cookies) {
+            if(cookie.getName().equals("typ") && typ == null) {
+                typ = cookie.getValue();
+            }
+
+            if(cookie.getName().equals("direction") && direction == null) {
+                direction = cookie.getValue();
+            }
+
+            if(cookie.getName().equals("dataFiltrowania") && dataFiltrowania == null) {
+                dataFiltrowania = cookie.getValue();
+            }
+
+            if(cookie.getName().equals("kategoriaFiltrowania") && kategoriaFiltrowania == null) {
+                kategoriaFiltrowania = cookie.getValue();
+            }
+        }
+
+        // Ustaw domyślne wartości jeżeli null i wstaw je do modelu
+        if(typ == null) {
+            typ = "brak";
+        }
+        model.addAttribute("wybranyTyp", typ);
+
+        if(direction == null) {
+            direction = "brak";
+        }
+        model.addAttribute("wybranyDirection", direction);
+
+        if(dataFiltrowania == null) {
+            dataFiltrowania = "zawsze";
+        }
+        model.addAttribute("wybranaData", dataFiltrowania);
+
+        if(kategoriaFiltrowania == null) {
+            kategoriaFiltrowania = "wszystkie";
+        }
+        model.addAttribute("wybranaKategoria", kategoriaFiltrowania);
+
+        // Pobierz dane z bazy danych
+        model.addAttribute("kategorie", informacjaService.sortKategoria());
+        model.addAttribute("informacje", informacjaService.sortFilterInformacje(typ, direction, kategoriaFiltrowania, dataFiltrowania));
         return "informacja";
     }
     @GetMapping("/dodaj")

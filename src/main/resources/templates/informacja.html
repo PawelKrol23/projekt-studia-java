@@ -13,26 +13,28 @@
 <div th:insert="~{commons :: navbar}"></div>
 <div class="p-3">
 
-    <form action="/informacja/filter">
+    <form th:action="@{/informacja}">
         <label for="typ">Sortowanie:</label>
         <select id="typ" name="typ">
-            <option value="alfabetycznie" selected>alfabetycznie</option>
-            <option value="kategoria">po kategorii</option>
-            <option value="data">po dacie</option>
+            <option value="brak" th:selected="${wybranyTyp.equals('brak')}">Brak</option>
+            <option value="alfabetycznie" th:selected="${wybranyTyp.equals('alfabetycznie')}">Alfabetycznie</option>
+            <option value="kategoria" th:selected="${wybranyTyp.equals('kategoria')}">Po kategorii</option>
+            <option value="data" th:selected="${wybranyTyp.equals('data')}">Po dacie</option>
         </select>
         <label for="direction">Kierunek:</label>
         <select id="direction" name="direction">
-            <option value="malejaco" selected>malejąco</option>
-            <option value="rosnaco">rosnąco</option>
+            <option value="brak" th:selected="${wybranyDirection.equals('brak')}">Brak</option>
+            <option value="malejaco" th:selected="${wybranyDirection.equals('malejaco')}">Malejąco</option>
+            <option value="rosnaco" th:selected="${wybranyDirection.equals('rosnaco')}">Rosnąco</option>
         </select>
         <label for="dataFiltrowania">Data:</label>
         <select id="dataFiltrowania" name="dataFiltrowania">
-            <option value="2tyg">2 tygodnie</option>
-            <option value="4tyg">1 miesiąc</option>
-            <option value="8tyg">2 miesiące</option>
-            <option value="24tyg">6 miesiący</option>
-            <option value="48tyg">1 rok</option>
-            <option value="nigdy" selected>Zawsze</option>
+            <option value="2tyg" th:selected="${wybranaData.equals('2tyg')}">Z ostatnich 2 tygodni</option>
+            <option value="4tyg" th:selected="${wybranaData.equals('4tyg')}">Z ostatniego miesiąca</option>
+            <option value="8tyg" th:selected="${wybranaData.equals('8tyg')}">Z ostatnich 2 miesięcy</option>
+            <option value="24tyg" th:selected="${wybranaData.equals('24tyg')}">Z ostatnich 6 miesięcy</option>
+            <option value="48tyg" th:selected="${wybranaData.equals('48tyg')}">Z ostatniego roku</option>
+            <option value="zawsze" th:selected="${wybranaData.equals('zawsze')}">Zawsze</option>
         </select>
         <!-- >
             <tr th:each="kategoriaEntity: ${kategorie}">
@@ -40,10 +42,8 @@
           <!-->
         <label for="kategoriaFiltrowania">Kategoria:</label>
         <select id="kategoriaFiltrowania" name="kategoriaFiltrowania">
-            <option value="brak" selected>Wszystkie</option>
-            <tr th:each="kategoriaEntity: ${kategorie}">
-                <option th:value="${kategoriaEntity}"><p th:text = "${kategoriaEntity}"></p></option>
-            </tr>
+            <option value="wszystkie" th:selected="${wybranaKategoria.equals('wszystkie')}">Wszystkie</option>
+            <option th:each="kategoriaEntity : ${kategorie}" th:value="${kategoriaEntity}" th:selected="${wybranaKategoria.equals(kategoriaEntity.getNazwa())}" th:text = "${kategoriaEntity.getNazwa()}">Opcja</option>
         </select>
         <input type="submit" value="Prześlij">
     </form>

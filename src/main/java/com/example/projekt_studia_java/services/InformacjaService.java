@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class InformacjaService {
     private final KategoriaRepository kategoriaRepository;
-    private final InformacjaRepository iinformacjaRepository;
+    private final InformacjaRepository informacjaRepository;
 
     public List<InformacjaEntity> getInformacje() {
-        return iinformacjaRepository.findAll();
+        return informacjaRepository.findAll();
     }
 
     public void zapisz(Informacja informacja) {
@@ -30,7 +31,52 @@ public class InformacjaService {
                 .dataPrzypomnienia(LocalDateTime.now().plusYears(1))
                 .build();
 
-        iinformacjaRepository.save(doZapisania);
+        informacjaRepository.save(doZapisania);
+    }
+
+    public List<InformacjaEntity> sortFilterInformacje(String typ, String direction, String kategoria, String data) {
+        // Ustalenie z jakiego okresu mają być informacje
+        Integer dni = null;
+        if(data != null) {
+            switch (data)
+            {
+                case "2tyg" -> dni = 2 * 7;
+                case "4tyg" -> dni = 4 * 7;
+                case "8tyg" -> dni = 8 * 7;
+                case "24tyg" -> dni = 24 * 7;
+                case "48tyg" -> dni = 48 * 7;
+            }
+        }
+
+        // Pobranie informacji
+        List<InformacjaEntity> informacje;
+        if(dni != null) {
+            informacje = informacjaRepository.findByDataDodaniaAfter(LocalDateTime.now().minusDays(dni));
+        } else {
+            informacje = informacjaRepository.findAll();
+        }
+
+        // Przefiltrowanie informacji na podstawie kategorii
+        if(kategoria != null && !kategoria.equals("wszystkie")) {
+            informacje = informacje.stream()
+                    .filter(informacjaEntity -> informacjaEntity.getKategoria().getNazwa().equals(kategoria))
+                    .collect(Collectors.toList());
+        }
+
+        // Posortowanie informacji
+        switch (typ) {
+            case "data" -> informacje.sort(Comparator.comparing(InformacjaEntity::getDataDodania));
+            case "kategoria" -> informacje.sort(Comparator.comparing(info -> info.getKategoria().getNazwa()));
+            case "alfabetycznie" -> informacje.sort(Comparator.comparing(InformacjaEntity::getTytul));
+        }
+
+        // Odwrócenie listy, jeżeli dane mają być posortowane malejąco
+        if(Objects.equals(direction, "malejaco"))
+        {
+            java.util.Collections.reverse(informacje);
+        }
+
+        return informacje;
     }
 
     public List<InformacjaEntity> sort(String typ, String direction, List<InformacjaEntity> lista) {
@@ -86,7 +132,7 @@ public class InformacjaService {
             case "nigdy" -> czas = czas.minusYears(100);
         }
 
-        List<InformacjaEntity> lista = iinformacjaRepository.findByDataDodaniaAfter(czas);
+        List<InformacjaEntity> lista = informacjaRepository.findByDataDodaniaAfter(czas);
 
         if(!kategoriaFiltrowania.equals("brak"))
             lista.removeIf(informacja -> !informacja.getKategoria().getNazwa().equals(kategoriaFiltrowania));
