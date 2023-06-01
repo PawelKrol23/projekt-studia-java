@@ -8,24 +8,26 @@
 </head>
 <body>
 
+<div class="container-xl vh-100 bg-light p-0">
 <div th:insert="~{commons :: header}"></div>
-<div class="container-xl" th:insert="~{commons :: navbar}"></div>
-<div class="container-xl">
-    <div class="mx-auto p-2">
-        <h3>Dodawanie nowego elementu:</h3>
+<div th:insert="~{commons :: navbar}"></div>
+
+    <div class="p-3">
+        <div class="p-2 container-fluid d-flex justify-content-center">
+            <h3>Dodawanie nowego elementu:</h3>
+        </div>
+        <form action="#" th:action="@{/informacja/dodaj}" th:object="${informacja}" method="post">
+            <p>Tytul: <input type="text" th:field="*{tytul}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tytul')}" th:errors="*{tytul}">Name Error </span></FONT></em>
+            <p>Tresc: <input type="text" th:field="*{tresc}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tresc')}" th:errors="*{tresc}">Name Error </span></FONT></em>
+
+            <p>Link: <input type="text" th:field="*{link}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('link')}" th:errors="*{link}">Name Error </span></FONT></em>
+            <p>Kategoria:
+            <select id="kategoria" name="kategoria" >
+               <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
+            </select><br><br></p>
+            <input type="submit" value="Dodaj">
+        </form>
     </div>
-
-    <form action="#" th:action="@{/informacja/dodaj}" th:object="${informacja}" method="post">
-        <p>Tytul: <input type="text" th:field="*{tytul}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tytul')}" th:errors="*{tytul}">Name Error </span></FONT></em>
-        <p>Tresc: <input type="text" th:field="*{tresc}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tresc')}" th:errors="*{tresc}">Name Error </span></FONT></em>
-
-        <p>Link: <input type="text" th:field="*{link}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('link')}" th:errors="*{link}">Name Error </span></FONT></em>
-        <p>Kategoria:
-        <select id="kategoria" name="kategoria" >
-           <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
-        </select><br><br></p>
-        <input type="submit" value="Dodaj">
-    </form>
 
 </div>
 </body>

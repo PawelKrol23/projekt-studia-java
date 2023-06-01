@@ -7,19 +7,19 @@
 <body>
 
 <header th:fragment="header" class="container-fluid d-flex justify-content-center">
-  <h1 class="p-2">StoreEverything</h1>
+  <h1 class="p-3">StoreEverything</h1>
 </header>
 
-<nav th:fragment="navbar" class="bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+<nav th:fragment="navbar" class="bg-primary" data-bs-theme="dark">
     <div class="container-fluid d-flex justify-content-between">
         <div class="d-flex">
-            <a class="px-2 py-3 text-light text-decoration-none" th:href="@{/}">Strona główna</a>
-            <a class="px-2 py-3 text-light text-decoration-none" th:href="@{/informacja}">Informacje</a>
-            <a class="px-2 py-3 text-light text-decoration-none" th:href="@{/informacja/dodaj}">Dodaj nową informacje</a>
+            <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/}">Strona główna</a>
+            <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja}">Informacje</a>
+            <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja/dodaj}">Dodaj informację</a>
         </div>
         <div class="d-flex">
-            <a class="px-2 py-3 text-light text-decoration-none" th:href="@{/uzytkownik/zaloguj}">Zaloguj się</a>
-            <a class="px-2 py-3 text-light text-decoration-none" th:href="@{/uzytkownik/zarejestruj}">Zarejestruj się</a>
+            <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/uzytkownik/zaloguj}">Zaloguj się</a>
+            <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/uzytkownik/zarejestruj}">Zarejestruj się</a>
         </div>
     </div>
 </nav>

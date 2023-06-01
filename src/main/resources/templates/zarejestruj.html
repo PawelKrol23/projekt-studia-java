@@ -8,21 +8,27 @@
 </head>
 <body>
 
+<div class="container-xl vh-100 bg-light p-0">
 <div th:insert="~{commons :: header}"></div>
-<div class="container-xl" th:insert="~{commons :: navbar}"></div>
-<div class="container-xl">
-  <div class="mx-auto p-2">
-    <h3>Zarejestruj</h3>
+<div th:insert="~{commons :: navbar}"></div>
+
+  <div class="p-3">
+
+      <div class="p-2 container-fluid d-flex justify-content-center">
+        <h3>Zarejestruj</h3>
+      </div>
+
+    <form th:action="@{/uzytkownik/zarejestruj}" th:object="${newUzytkownik}" method="post">
+      <p>Imie: <input type="text" th:field="*{imie}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('imie')}" th:errors="*{imie}">Name Error </span></FONT></em>
+      <p>Nazwisko: <input type="text" th:field="*{nazwisko}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}">Name Error </span></FONT></em>
+      <p>Haslo: <input type="text" th:field="*{haslo}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}">Name Error </span></FONT></em>
+      <p>Login: <input type="text" th:field="*{login}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Name Error </span></FONT></em>
+      <p>Mail: <input type="text" th:field="*{mail}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Name Error </span></FONT></em>
+      <p>Wiek: <input type="text" th:field="*{wiek}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('wiek')}" th:errors="*{wiek}">Name Error </span></FONT></em> <br>
+      <input type="submit" value="Potwierdz">
+    </form>
   </div>
-  <form th:action="@{/uzytkownik/zarejestruj}" th:object="${newUzytkownik}" method="post">
-    <p>Imie: <input type="text" th:field="*{imie}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('imie')}" th:errors="*{imie}">Name Error </span></FONT></em>
-    <p>Nazwisko: <input type="text" th:field="*{nazwisko}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}">Name Error </span></FONT></em>
-    <p>Haslo: <input type="text" th:field="*{haslo}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}">Name Error </span></FONT></em>
-    <p>Login: <input type="text" th:field="*{login}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Name Error </span></FONT></em>
-    <p>Mail: <input type="text" th:field="*{mail}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Name Error </span></FONT></em>
-    <p>Wiek: <input type="text" th:field="*{wiek}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('wiek')}" th:errors="*{wiek}">Name Error </span></FONT></em> <br>
-    <input type="submit" value="Potwierdz">
-  </form>
+
 </div>
 </body>
 </html>

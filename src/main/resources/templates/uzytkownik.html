@@ -8,20 +8,21 @@
 </head>
 <body>
 
+<div class="container-xl vh-100 bg-light p-0">
 <div th:insert="~{commons :: header}"></div>
-<div class="container-xl" th:insert="~{commons :: navbar}"></div>
-<div class="container-xl">
-    <div class="mx-auto p-2">
-        <h3>Uzytkownik</h3>
+<div th:insert="~{commons :: navbar}"></div>
+    <div class="p-3">
+        <div class="p-2 container-fluid d-flex justify-content-center">
+            <h2>Uzytkownik</h2>
+        </div>
+
+        <a href="/uzytkownik/zaloguj" class="btn btn-primary">Zaloguj </a> <br><br>
+        <a href="/uzytkownik/zarejestruj" class="btn btn-primary"> Zarejestruj sie</a>
+
+        <ol>
+            <li th:each="uzytkownik : ${uzytkownicy}" th:text="${uzytkownik.imie}" />
+        </ol>
     </div>
-
-    <a href="/uzytkownik/zaloguj" class="btn btn-primary">Zaloguj </a> <br><br>
-    <a href="/uzytkownik/zarejestruj" class="btn btn-primary"> Zarejestruj sie</a>
-
-    <ol>
-        <li th:each="uzytkownik : ${uzytkownicy}" th:text="${uzytkownik.imie}" />
-    </ol>
-
 </div>
 </body>
 </html>

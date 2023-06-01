@@ -1,7 +1,6 @@
 package com.example.projekt_studia_java.controllers;
 
 import com.example.projekt_studia_java.domain.Informacja;
-import com.example.projekt_studia_java.domain.Kategoria;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.services.InformacjaService;
 import com.example.projekt_studia_java.services.KategoriaService;
@@ -65,13 +64,12 @@ public class InformacjaController {
     }
     @PostMapping("/dodaj")
     public String dodajInformacja(@Valid @ModelAttribute("informacja") Informacja informacja, BindingResult result, Model model) {
-        if(result.hasErrors())
-        {
-            System.out.println(result.getErrorCount());
-            result.getAllErrors().forEach(el->System.out.println(el));
+
+        if(result.hasErrors()) {
             model.addAttribute("kategorie",kategoriaService.getKategorie());
             return "dodaj";
         }
+
         informacjaService.zapisz(informacja);
         return "redirect:/informacja";
     }

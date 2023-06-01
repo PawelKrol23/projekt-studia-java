@@ -8,71 +8,74 @@
 </head>
 <body>
 
+<div class="container-xl vh-100 bg-light p-0">
 <div th:insert="~{commons :: header}"></div>
-<div class="container-xl" th:insert="~{commons :: navbar}"></div>
-<div class="container-xl">
-    <div class="mx-auto p-2">
-        <h2>Wartości atrybutów:</h2>
+<div th:insert="~{commons :: navbar}"></div>
+<div class="p-3">
+
+    <form action="/informacja/filter">
+        <label for="typ">Sortowanie:</label>
+        <select id="typ" name="typ">
+            <option value="alfabetycznie" selected>alfabetycznie</option>
+            <option value="kategoria">po kategorii</option>
+            <option value="data">po dacie</option>
+        </select>
+        <label for="direction">Kierunek:</label>
+        <select id="direction" name="direction">
+            <option value="malejaco" selected>malejąco</option>
+            <option value="rosnaco">rosnąco</option>
+        </select>
+        <label for="dataFiltrowania">Data:</label>
+        <select id="dataFiltrowania" name="dataFiltrowania">
+            <option value="2tyg">2 tygodnie</option>
+            <option value="4tyg">1 miesiąc</option>
+            <option value="8tyg">2 miesiące</option>
+            <option value="24tyg">6 miesiący</option>
+            <option value="48tyg">1 rok</option>
+            <option value="nigdy" selected>Zawsze</option>
+        </select>
+        <!-- >
+            <tr th:each="kategoriaEntity: ${kategorie}">
+                <input type="checkbox" th:name="${kategoriaEntity}" th:value="${kategoriaEntity}"/><br>
+          <!-->
+        <label for="kategoriaFiltrowania">Kategoria:</label>
+        <select id="kategoriaFiltrowania" name="kategoriaFiltrowania">
+            <option value="brak" selected>Wszystkie</option>
+            <tr th:each="kategoriaEntity: ${kategorie}">
+                <option th:value="${kategoriaEntity}"><p th:text = "${kategoriaEntity}"></p></option>
+            </tr>
+        </select>
+        <input type="submit" value="Prześlij">
+    </form>
+
+    <div class="p-2 container-fluid d-flex justify-content-center">
+        <h2>Lista twoich informacji</h2>
     </div>
 
-<form action="/informacja/filter">
-    <label for="typ">Sortowanie:</label>
-    <select id="typ" name="typ">
-        <option value="alfabetycznie" selected>alfabetycznie</option>
-        <option value="kategoria">po kategorii</option>
-        <option value="data">po dacie</option>
-    </select>
-    <label for="direction">Kierunek:</label>
-    <select id="direction" name="direction">
-        <option value="malejaco" selected>malejąco</option>
-        <option value="rosnaco">rosnąco</option>
-    </select>
-    <label for="dataFiltrowania">Filtrowanie:</label>
-    <select id="dataFiltrowania" name="dataFiltrowania">
-        <option value="2tyg">2 tygodnie</option>
-        <option value="4tyg">1 miesiąc</option>
-        <option value="8tyg">2 miesiące</option>
-        <option value="24tyg">6 miesiący</option>
-        <option value="48tyg">1 rok</option>
-        <option value="nigdy" selected>brak</option>
-    </select>
-    <!-- >
-        <tr th:each="kategoriaEntity: ${kategorie}">
-            <input type="checkbox" th:name="${kategoriaEntity}" th:value="${kategoriaEntity}"/><br>
-      <!-->
-    <label for="kategoriaFiltrowania">Kategoria:</label>
-    <select id="kategoriaFiltrowania" name="kategoriaFiltrowania">
-        <option value="brak" selected>brak</option>
-        <tr th:each="kategoriaEntity: ${kategorie}">
-            <option th:value="${kategoriaEntity}"><p th:text = "${kategoriaEntity}"></p></option>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Tytuł</th>
+            <th scope="col">Kategoria</th>
+            <th scope="col">Treść</th>
+            <th scope="col">Link</th>
+            <th scope="col">Data Dodania</th>
+            <th scope="col">Data Przypomnienia</th>
         </tr>
-    </select>
-    <input type="submit" value="Prześlij">
-</form>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Tytuł</th>
-        <th scope="col">Kategoria</th>
-        <th scope="col">Treść</th>
-        <th scope="col">Link</th>
-        <th scope="col">Data Dodania</th>
-        <th scope="col">Data Przypomnienia</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="informacjaEntity: ${informacje}">
-        <td th:text="${informacjaEntity.tytul}"></td>
-        <td th:text="${informacjaEntity.kategoria}"></td>
-        <td th:text="${informacjaEntity.tresc}"></td>
-        <td th:text="${informacjaEntity.link}"></td>
-        <td th:text="${informacjaEntity.writeDataDodania()}"></td>
-        <td th:text="${informacjaEntity.writeDataPrzypomnienia()}"></td>
-    </tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <tr th:each="informacjaEntity: ${informacje}">
+            <td th:text="${informacjaEntity.tytul}"></td>
+            <td th:text="${informacjaEntity.kategoria}"></td>
+            <td th:text="${informacjaEntity.tresc}"></td>
+            <td th:text="${informacjaEntity.link}"></td>
+            <td th:text="${informacjaEntity.writeDataDodania()}"></td>
+            <td th:text="${informacjaEntity.writeDataPrzypomnienia()}"></td>
+        </tr>
+        </tbody>
+    </table>
     <a href="/informacja/dodaj" class="btn btn-primary">Dodaj nową informacje </a>
+</div>
     <!--<a href="/informacja/dodaj_kategoria" class="btn btn-primary">Dodaj nową kategorie </a>-->
 </div>
 </body>

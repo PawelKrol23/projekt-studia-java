@@ -8,11 +8,13 @@
 </head>
 <body>
 
+<div class="container-xl vh-100 bg-light p-0">
+
 <div th:insert="~{commons :: header}"></div>
-<div class="container-xl" th:insert="~{commons :: navbar}"></div>
-<div class="container-xl">
-    <div class="mx-auto p-2">
-        <h3>Strona główna</h3>
+<div th:insert="~{commons :: navbar}"></div>
+
+    <div class="p-2 container-fluid d-flex justify-content-center">
+        <h2>Strona główna</h2>
     </div>
 </div>
 </body>
