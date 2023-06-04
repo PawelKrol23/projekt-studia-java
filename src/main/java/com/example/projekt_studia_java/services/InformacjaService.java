@@ -1,15 +1,18 @@
 package com.example.projekt_studia_java.services;
 
 import com.example.projekt_studia_java.domain.Informacja;
-import com.example.projekt_studia_java.domain.db.KategoriaEntity;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
+import com.example.projekt_studia_java.domain.db.KategoriaEntity;
 import com.example.projekt_studia_java.repositories.InformacjaRepository;
 import com.example.projekt_studia_java.repositories.KategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,17 +21,15 @@ public class InformacjaService {
     private final KategoriaRepository kategoriaRepository;
     private final InformacjaRepository informacjaRepository;
 
-    public List<InformacjaEntity> getInformacje() {
-        return informacjaRepository.findAll();
-    }
-
     public void zapisz(Informacja informacja) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         InformacjaEntity doZapisania = InformacjaEntity.builder()
                 .tresc(informacja.getTresc())
                 .link(informacja.getLink())
                 .tytul(informacja.getTytul())
                 .kategoria(kategoriaRepository.findByNazwa(informacja.getKategoria()))
-                .dataPrzypomnienia(LocalDateTime.now().plusYears(1))
+                .dataPrzypomnienia(LocalDateTime.parse(informacja.getDataPrzypomnienia() + " 00:00", formatter))
                 .build();
 
         informacjaRepository.save(doZapisania);
@@ -79,33 +80,6 @@ public class InformacjaService {
         return informacje;
     }
 
-    public List<InformacjaEntity> sort(String typ, String direction, List<InformacjaEntity> lista) {
-        switch (typ) {
-            case "data" -> lista.sort(Comparator.comparing(InformacjaEntity::getDataDodania));
-            case "kategoria" -> //lista.sort(Comparator.comparing(info -> info.getKategoria().getNazwa()));
-            {
-                List<KategoriaEntity> listaK = sortKategoria();
-                List<InformacjaEntity> listaI = new ArrayList<>();
-
-                for(KategoriaEntity kategoria : listaK)
-                {
-                    for(InformacjaEntity informacja : lista)
-                    {
-                        if(informacja.getKategoria() == kategoria)
-                            listaI.add(informacja);
-                    }
-                }
-                lista = listaI;
-            }
-            default -> lista.sort(Comparator.comparing(InformacjaEntity::getTytul));
-        }
-
-        if(Objects.equals(direction, "rosnaco"))
-        {
-            java.util.Collections.reverse(lista);
-        }
-        return lista;
-    }
     public List<KategoriaEntity> sortKategoria()
     {
         List<KategoriaEntity> kategorie = kategoriaRepository.findAll();
@@ -119,24 +93,4 @@ public class InformacjaService {
         return kategorie;
     }
 
-    public List<InformacjaEntity> filter(String dataFiltrowania, String kategoriaFiltrowania)
-    {
-        LocalDateTime czas = LocalDateTime.now();
-        switch (dataFiltrowania)
-        {
-            case "2tyg" -> czas = czas.minusWeeks(2);
-            case "4tyg" -> czas = czas.minusMonths(1);
-            case "8tyg" -> czas = czas.minusMonths(2);
-            case "24tyg" -> czas = czas.minusMonths(6);
-            case "48tyg" -> czas = czas.minusYears(1);
-            case "nigdy" -> czas = czas.minusYears(100);
-        }
-
-        List<InformacjaEntity> lista = informacjaRepository.findByDataDodaniaAfter(czas);
-
-        if(!kategoriaFiltrowania.equals("brak"))
-            lista.removeIf(informacja -> !informacja.getKategoria().getNazwa().equals(kategoriaFiltrowania));
-
-        return lista;
-    }
 }

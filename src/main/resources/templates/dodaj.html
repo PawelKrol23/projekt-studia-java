@@ -37,7 +37,11 @@
                             <div id="validationLink" class="invalid-feedback" th:if="${#fields.hasErrors('link')}" th:errors="*{link}"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="kategoria">Kategoria:</label>
+                            <label for="data" class="form-label">Data przypomnienia</label>
+                            <input id="data" class="form-control" type="date" th:field="*{dataPrzypomnienia}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kategoria" class="form-label">Kategoria:</label>
                             <select id="kategoria" name="kategoria">
                                <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
                             </select>

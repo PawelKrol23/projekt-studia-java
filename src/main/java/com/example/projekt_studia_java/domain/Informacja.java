@@ -15,7 +15,7 @@ public class Informacja {
     private String kategoria;
     @Size(min=5,max=500,message = "Tresc musi miec od 5 do 500 liter")
     private String tresc;
-
     @NotBlank(message="Link nie moze byc pusty")
     private String link;
+    private String dataPrzypomnienia;
 }
