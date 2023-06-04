@@ -1,7 +1,7 @@
 package com.example.projekt_studia_java.services;
 
 import com.example.projekt_studia_java.domain.Informacja;
-import com.example.projekt_studia_java.domain.Kategoria;
+import com.example.projekt_studia_java.domain.db.KategoriaEntity;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.repositories.InformacjaRepository;
 import com.example.projekt_studia_java.repositories.KategoriaRepository;
@@ -84,10 +84,10 @@ public class InformacjaService {
             case "data" -> lista.sort(Comparator.comparing(InformacjaEntity::getDataDodania));
             case "kategoria" -> //lista.sort(Comparator.comparing(info -> info.getKategoria().getNazwa()));
             {
-                List<Kategoria> listaK = sortKategoria();
+                List<KategoriaEntity> listaK = sortKategoria();
                 List<InformacjaEntity> listaI = new ArrayList<>();
 
-                for(Kategoria kategoria : listaK)
+                for(KategoriaEntity kategoria : listaK)
                 {
                     for(InformacjaEntity informacja : lista)
                     {
@@ -106,9 +106,9 @@ public class InformacjaService {
         }
         return lista;
     }
-    public List<Kategoria> sortKategoria()
+    public List<KategoriaEntity> sortKategoria()
     {
-        List<Kategoria> kategorie = kategoriaRepository.findAll();
+        List<KategoriaEntity> kategorie = kategoriaRepository.findAll();
 
         kategorie.sort((kat1, kat2) -> CharSequence.compare(kat1.getNazwa(), kat2.getNazwa()));
         java.util.Collections.reverse(kategorie);

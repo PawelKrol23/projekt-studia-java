@@ -1,6 +1,5 @@
 package com.example.projekt_studia_java.domain.db;
 
-import com.example.projekt_studia_java.domain.Kategoria;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,7 +20,7 @@ public class InformacjaEntity {
     private Integer id;
     private String tytul;
     @ManyToOne
-    private Kategoria kategoria;
+    private KategoriaEntity kategoria;
     private String tresc;
     private String link;
     @CreationTimestamp
