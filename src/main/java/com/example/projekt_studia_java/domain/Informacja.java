@@ -1,12 +1,10 @@
 package com.example.projekt_studia_java.domain;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.URL;
-import org.springframework.data.domain.DomainEvents;
 
 @Data
 @AllArgsConstructor

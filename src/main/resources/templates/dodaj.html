@@ -14,19 +14,39 @@
 
     <div class="p-3">
         <div class="p-2 container-fluid d-flex justify-content-center">
-            <h3>Dodawanie nowego elementu:</h3>
+            <h3>Dodawanie nowego elementu</h3>
         </div>
-        <form action="#" th:action="@{/informacja/dodaj}" th:object="${informacja}" method="post">
-            <p>Tytul: <input type="text" th:field="*{tytul}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tytul')}" th:errors="*{tytul}">Name Error </span></FONT></em>
-            <p>Tresc: <input type="text" th:field="*{tresc}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('tresc')}" th:errors="*{tresc}">Name Error </span></FONT></em>
+        <div class="container-fluid d-flex justify-content-center">
+            <div class="card w-50 d-flex justify-content-center">
+                <div class="card-body">
+                    <form action="#" th:action="@{/informacja/dodaj}" th:object="${informacja}" method="post">
+                        <div class="mb-3">
+                            <label for="tytul" class="form-label">Tytuł</label>
+                            <input id="tytul" class="form-control" type="text" th:field="*{tytul}" aria-describedby="validationTytul" th:classappend="${#fields.hasErrors('tytul') ? 'is-invalid' : ' '}"/>
+                            <div id="validationTytul" class="invalid-feedback" th:if="${#fields.hasErrors('tytul')}" th:errors="*{tytul}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tresc" class="form-label">Treść</label>
+                            <textarea id="tresc" class="form-control" th:field="*{tresc}" rows="3" aria-describedby="validationTytul" th:classappend="${#fields.hasErrors('tresc') ? 'is-invalid' : ' '}"></textarea>
+                            <div id="validationTresc" class="invalid-feedback" th:if="${#fields.hasErrors('tresc')}" th:errors="*{tresc}"></div>
+                        </div>
 
-            <p>Link: <input type="text" th:field="*{link}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('link')}" th:errors="*{link}">Name Error </span></FONT></em>
-            <p>Kategoria:
-            <select id="kategoria" name="kategoria" >
-               <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
-            </select><br><br></p>
-            <input type="submit" value="Dodaj">
-        </form>
+                        <div class="mb-3">
+                            <label for="link" class="form-label">Link</label>
+                            <input id="link" class="form-control" type="text" th:field="*{link}" aria-describedby="validationLink" th:classappend="${#fields.hasErrors('link') ? 'is-invalid' : ' '}"/>
+                            <div id="validationLink" class="invalid-feedback" th:if="${#fields.hasErrors('link')}" th:errors="*{link}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kategoria">Kategoria:</label>
+                            <select id="kategoria" name="kategoria">
+                               <option th:each="kategoria : ${kategorie}" th:value="${kategoria}" th:text="${kategoria}"></option>
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Dodaj">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
