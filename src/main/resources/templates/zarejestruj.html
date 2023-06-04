@@ -15,18 +15,48 @@
   <div class="p-3">
 
       <div class="p-2 container-fluid d-flex justify-content-center">
-        <h3>Zarejestruj</h3>
+        <h2>Załóż konto</h2>
       </div>
 
-    <form th:action="@{/uzytkownik/zarejestruj}" th:object="${newUzytkownik}" method="post">
-      <p>Imie: <input type="text" th:field="*{imie}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('imie')}" th:errors="*{imie}">Name Error </span></FONT></em>
-      <p>Nazwisko: <input type="text" th:field="*{nazwisko}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}">Name Error </span></FONT></em>
-      <p>Haslo: <input type="text" th:field="*{haslo}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}">Name Error </span></FONT></em>
-      <p>Login: <input type="text" th:field="*{login}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Name Error </span></FONT></em>
-      <p>Mail: <input type="text" th:field="*{mail}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Name Error </span></FONT></em>
-      <p>Wiek: <input type="text" th:field="*{wiek}" /></p>  <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('wiek')}" th:errors="*{wiek}">Name Error </span></FONT></em> <br>
-      <input type="submit" value="Potwierdz">
-    </form>
+    <div class="container-fluid d-flex justify-content-center">
+      <div class="card w-50 d-flex justify-content-center">
+        <div class="card-body">
+          <form th:action="@{/uzytkownik/zarejestruj}" th:object="${newUzytkownik}" method="post">
+            <div class="mb-3">
+              <label for="imie" class="form-label">Imię</label>
+              <input id="imie" class="form-control" type="text" th:field="*{imie}" aria-describedby="validationImie" th:classappend="${#fields.hasErrors('imie') ? 'is-invalid' : ' '}"/>
+              <div id="validationImie" class="invalid-feedback" th:if="${#fields.hasErrors('imie')}" th:errors="*{imie}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="nazwisko" class="form-label">Nazwisko</label>
+              <input id="nazwisko" class="form-control" type="text" th:field="*{nazwisko}" aria-describedby="validationNazwisko" th:classappend="${#fields.hasErrors('nazwisko') ? 'is-invalid' : ' '}"/>
+              <div id="validationNazwisko" class="invalid-feedback" th:if="${#fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="haslo" class="form-label">Hasło</label>
+              <input id="haslo" class="form-control" type="text" th:field="*{haslo}" aria-describedby="validationHaslo" th:classappend="${#fields.hasErrors('haslo') ? 'is-invalid' : ' '}"/>
+              <div id="validationHaslo" class="invalid-feedback" th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="login" class="form-label">Login</label>
+              <input id="login" class="form-control" type="text" th:field="*{login}" aria-describedby="validationLogin" th:classappend="${#fields.hasErrors('login') ? 'is-invalid' : ' '}"/>
+              <div id="validationLogin" class="invalid-feedback" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mail" class="form-label">Email</label>
+              <input id="mail" class="form-control" type="text" th:field="*{mail}" aria-describedby="validationMail" th:classappend="${#fields.hasErrors('mail') ? 'is-invalid' : ' '}"/>
+              <div id="validationMail" class="invalid-feedback" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="wiek" class="form-label">Wiek</label>
+              <input id="wiek" class="form-control" type="number" th:field="*{wiek}" aria-describedby="validationWiek" th:classappend="${#fields.hasErrors('wiek') ? 'is-invalid' : ' '}"/>
+              <div id="validationWiek" class="invalid-feedback" th:if="${#fields.hasErrors('wiek')}" th:errors="*{wiek}"></div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Zarejestruj">
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

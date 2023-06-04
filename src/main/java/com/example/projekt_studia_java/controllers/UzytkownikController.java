@@ -20,24 +20,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UzytkownikController {
     private final UzytkownikService uzytkownikService;
     @GetMapping
-    public String getAllData(Model model)
-    {
+    public String getAllData(Model model) {
         model.addAttribute("uzytkownicy",uzytkownikService.getUzytkownicy());
         return "uzytkownik";
     }
     @GetMapping("/zarejestruj")
     public String formularzDodawaniaUzytkownika(Model model) {
-        //Uzytkownik uzytkownik = new Uzytkownik();
-        model.addAttribute("newUzytkownik",new Uzytkownik());
+        model.addAttribute("newUzytkownik", new Uzytkownik());
         return "zarejestruj";
     }
     @PostMapping("/zarejestruj")
-    public String dodajUzytkownika(@Valid @ModelAttribute("newUzytkownik") Uzytkownik newUzytkownik, BindingResult result, Model model){
+    public String dodajUzytkownika(@Valid @ModelAttribute Uzytkownik newUzytkownik, BindingResult result){
         if(result.hasErrors())
         {
-           System.out.println(result.getErrorCount());
-           result.getAllErrors().forEach(el->System.out.println(el));
-           return"zarejestruj";
+           return "zarejestruj";
         }
 
         uzytkownikService.zapisz(newUzytkownik);

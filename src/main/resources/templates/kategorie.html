@@ -13,15 +13,23 @@
     <div th:insert="~{commons :: navbar}"></div>
 
     <div class="p-3">
-
         <div class="p-2 container-fluid d-flex justify-content-center">
-            <h3>Dodaj Kategorie</h3>
+            <h3>Dodawanie nowej kategorii</h3>
         </div>
-
-        <form th:action="@{/kategorie}" th:object="${newKategoria}" method="post">
-            <p>Kategoria: <input type="text" th:field="*{nazwa}" /></p> <FONT COLOR="#ff0000"><em><span th:if="${#fields.hasErrors('nazwa')}" th:errors="*{nazwa}">Name Error </span></FONT></em>
-            <input type="submit" value="Potwierdz">
-        </form>
+        <div class="container-fluid d-flex justify-content-center">
+            <div class="card w-50 d-flex justify-content-center">
+                <div class="card-body">
+                    <form th:action="@{/kategorie}" th:object="${newKategoria}" method="post">
+                        <div class="mb-3">
+                            <label for="tytul" class="form-label">Nazwa</label>
+                            <input id="tytul" class="form-control" type="text" th:field="*{nazwa}" aria-describedby="validationNazwa" th:classappend="${#fields.hasErrors('nazwa') ? 'is-invalid' : ' '}"/>
+                            <div id="validationNazwa" class="invalid-feedback" th:if="${#fields.hasErrors('nazwa')}" th:errors="*{nazwa}"></div>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Dodaj">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
