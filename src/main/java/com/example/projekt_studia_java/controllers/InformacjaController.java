@@ -1,13 +1,16 @@
 package com.example.projekt_studia_java.controllers;
 
 import com.example.projekt_studia_java.domain.Informacja;
+import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.services.InformacjaService;
 import com.example.projekt_studia_java.services.KategoriaService;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -119,6 +122,38 @@ public class InformacjaController {
         }
 
         informacjaService.zapisz(informacja);
+        return "redirect:/informacja";
+    }
+    @GetMapping("/edytuj")
+    public String formularzEdycjiInformacji(Model model, @RequestParam("informacjaDoEdycji") int id) {
+        model.addAttribute("kategorie",kategoriaService.getKategorie());
+
+        InformacjaEntity informacjaDoEdycji = informacjaService.findInformacja(id);
+        model.addAttribute("informacja", informacjaDoEdycji);
+        model.addAttribute("id", id);
+
+        return "edytuj";
+    }
+    @PostMapping("/edytuj")
+    public String edytujInformacja(@Valid @ModelAttribute("informacja") Informacja informacja, @RequestParam("id") int id, BindingResult result, Model model) {
+
+        if(result.hasErrors()) {
+            model.addAttribute("kategorie",kategoriaService.getKategorie());
+            return "edytuj";
+        }
+
+        InformacjaEntity informacjaDoEdycji = informacjaService.findInformacja(id);
+        informacjaService.usun(informacjaDoEdycji);
+        informacjaService.zapisz(informacja);
+
+        return "redirect:/informacja";
+    }
+    @GetMapping("/usun")
+    public String usuwanie(Model model, @RequestParam("informacjaDoUsuniecia") int id) {
+
+        InformacjaEntity informacjaDoEdycji = informacjaService.findInformacja(id);
+        informacjaService.usun(informacjaDoEdycji);
+
         return "redirect:/informacja";
     }
 }

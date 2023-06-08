@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +34,9 @@ public class InformacjaService {
                 .build();
 
         informacjaRepository.save(doZapisania);
+    }
+    public void usun(InformacjaEntity informacja) {
+        informacjaRepository.delete(informacja);
     }
 
     public List<InformacjaEntity> sortFilterInformacje(String typ, String direction, String kategoria, String data) {
@@ -91,6 +95,17 @@ public class InformacjaService {
         java.util.Collections.reverse(kategorie);
 
         return kategorie;
+    }
+    public InformacjaEntity findInformacja(int id)
+    {
+        List<InformacjaEntity> list = informacjaRepository.findAll();
+
+        for(InformacjaEntity inf : list)
+        {
+            if(inf.getId() == id)
+                return inf;
+        }
+        return null;
     }
 
 }

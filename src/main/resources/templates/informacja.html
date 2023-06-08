@@ -61,6 +61,7 @@
             <th scope="col">Link</th>
             <th scope="col">Data Dodania</th>
             <th scope="col">Data Przypomnienia</th>
+            <th scope="col">Edycja</th>
         </tr>
         </thead>
         <tbody>
@@ -71,6 +72,16 @@
             <td th:text="${informacjaEntity.link}"></td>
             <td th:text="${informacjaEntity.writeDataDodania()}"></td>
             <td th:text="${informacjaEntity.writeDataPrzypomnienia()}"></td>
+            <td>
+                <form action="/informacja/edytuj" method="get">
+                    <input type="hidden" name="informacjaDoEdycji" th:value="${informacjaEntity.getId()}">
+                    <input type="submit" value="Edytuj">
+                </form>
+                <form action="/informacja/usun" method="get">
+                    <input type="hidden" name="informacjaDoUsuniecia" th:value="${informacjaEntity.getId()}">
+                    <input type="submit" value="Usuń">
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
