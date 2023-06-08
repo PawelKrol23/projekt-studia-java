@@ -34,7 +34,7 @@
             </div>
             <div class="mb-3">
               <label for="haslo" class="form-label">Hasło</label>
-              <input id="haslo" class="form-control" type="text" th:field="*{haslo}" aria-describedby="validationHaslo" th:classappend="${#fields.hasErrors('haslo') ? 'is-invalid' : ' '}"/>
+              <input id="haslo" class="form-control" type="password" th:field="*{haslo}" aria-describedby="validationHaslo" th:classappend="${#fields.hasErrors('haslo') ? 'is-invalid' : ' '}"/>
               <div id="validationHaslo" class="invalid-feedback" th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}"></div>
             </div>
             <div class="mb-3">
