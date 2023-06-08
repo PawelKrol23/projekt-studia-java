@@ -8,8 +8,8 @@ INSERT INTO Kategoria (nazwa) VALUES ('podróże');
 INSERT INTO Kategoria (nazwa) VALUES ('sztuka');
 INSERT INTO Kategoria (nazwa) VALUES ('biznes');
 INSERT INTO Kategoria (nazwa) VALUES ('technologia');
-INSERT INTO Kategoria (nazwa) VALUES ('gry i rozrywka');
-INSERT INTO Kategoria (nazwa) VALUES ('dom i ogród');
+INSERT INTO Kategoria (nazwa) VALUES ('gry');
+INSERT INTO Kategoria (nazwa) VALUES ('dom');
 
 -- Informacje
 INSERT INTO Informacja (data_dodania, data_przypomnienia, link, tresc, tytul, kategoria_id)
