@@ -22,7 +22,7 @@
           <form action="#" th:action="@{/informacja/edytuj}" th:object="${informacja}" method="post">
             <div class="mb-3">
               <label for="tytul" class="form-label">Tytuł</label>
-              <input id="tytul" type="text" th:field="*{tytul}" aria-describedby="validationTytul" th:classappend="${#fields.hasErrors('tytul') ? 'is-invalid' : ' '}"/>
+              <input id="tytul" class="form-control" type="text" th:field="*{tytul}" aria-describedby="validationTytul" th:classappend="${#fields.hasErrors('tytul') ? 'is-invalid' : ' '}"/>
               <div id="validationTytul" class="invalid-feedback" th:if="${#fields.hasErrors('tytul')}" th:errors="*{tytul}"></div>
             </div>
             <div class="mb-3">
@@ -37,8 +37,8 @@
               <div id="validationLink" class="invalid-feedback" th:if="${#fields.hasErrors('link')}" th:errors="*{link}"></div>
             </div>
             <div class="mb-3">
-              <label for="data" class="form-label">Data przypomnienia</label>
-              <input id="data" class="form-control" type="date" th:field="*{dataPrzypomnienia}"/>
+              <label for="dataPrzypomnienia" class="form-label">Data przypomnienia</label>
+              <input id="dataPrzypomnienia" class="form-control" type="date" th:field="*{dataPrzypomnienia}"/>
             </div>
             <div class="mb-3">
               <label for="kategoria" class="form-label">Kategoria:</label>

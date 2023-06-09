@@ -4,13 +4,11 @@ import com.example.projekt_studia_java.domain.Informacja;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.services.InformacjaService;
 import com.example.projekt_studia_java.services.KategoriaService;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -128,8 +126,17 @@ public class InformacjaController {
     public String formularzEdycjiInformacji(Model model, @RequestParam("informacjaDoEdycji") int id) {
         model.addAttribute("kategorie",kategoriaService.getKategorie());
 
-        InformacjaEntity informacjaDoEdycji = informacjaService.findInformacja(id);
-        model.addAttribute("informacja", informacjaDoEdycji);
+        InformacjaEntity informacjaEntity = informacjaService.findInformacja(id);
+
+        Informacja informacja = Informacja.builder()
+                .dataPrzypomnienia(informacjaEntity.getDataPrzypomnienia())
+                .link(informacjaEntity.getLink())
+                .tresc(informacjaEntity.getTresc())
+                .tytul(informacjaEntity.getTytul())
+                .kategoria(informacjaEntity.getKategoria().getNazwa())
+                .build();
+
+        model.addAttribute("informacja", informacja);
         model.addAttribute("id", id);
 
         return "edytuj";

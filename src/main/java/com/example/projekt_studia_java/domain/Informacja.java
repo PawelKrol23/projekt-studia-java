@@ -3,12 +3,17 @@ package com.example.projekt_studia_java.domain;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Informacja {
     @Size(min=3,max=20,message = "Nazwa musi miec od 3 do 20 liter")
     private String tytul;
@@ -17,5 +22,6 @@ public class Informacja {
     private String tresc;
     @NotBlank(message="Link nie moze byc pusty")
     private String link;
-    private String dataPrzypomnienia;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate dataPrzypomnienia;
 }

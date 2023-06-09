@@ -8,6 +8,7 @@ import com.example.projekt_studia_java.repositories.KategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -23,14 +24,12 @@ public class InformacjaService {
     private final InformacjaRepository informacjaRepository;
 
     public void zapisz(Informacja informacja) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
         InformacjaEntity doZapisania = InformacjaEntity.builder()
                 .tresc(informacja.getTresc())
                 .link(informacja.getLink())
                 .tytul(informacja.getTytul())
                 .kategoria(kategoriaRepository.findByNazwa(informacja.getKategoria()))
-                .dataPrzypomnienia(LocalDateTime.parse(informacja.getDataPrzypomnienia() + " 00:00", formatter))
+                .dataPrzypomnienia(informacja.getDataPrzypomnienia())
                 .build();
 
         informacjaRepository.save(doZapisania);
@@ -98,14 +97,7 @@ public class InformacjaService {
     }
     public InformacjaEntity findInformacja(int id)
     {
-        List<InformacjaEntity> list = informacjaRepository.findAll();
-
-        for(InformacjaEntity inf : list)
-        {
-            if(inf.getId() == id)
-                return inf;
-        }
-        return null;
+        return informacjaRepository.findById(id).get();
     }
 
 }

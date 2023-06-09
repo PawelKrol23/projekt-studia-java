@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -28,7 +30,9 @@ public class InformacjaEntity {
     private String link;
     @CreationTimestamp
     private LocalDateTime dataDodania;
-    private LocalDateTime dataPrzypomnienia;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate dataPrzypomnienia;
 
 
     public String writeDataDodania()
