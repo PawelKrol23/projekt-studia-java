@@ -34,7 +34,7 @@ public class UzytkownikController {
         return "zarejestruj";
     }
     @PostMapping("/zarejestruj")
-    public String dodajUzytkownika(@Valid @ModelAttribute Uzytkownik newUzytkownik, BindingResult result){
+    public String dodajUzytkownika(@Valid @ModelAttribute("newUzytkownik") Uzytkownik newUzytkownik, BindingResult result){
         if(result.hasErrors())
         {
            return "zarejestruj";
