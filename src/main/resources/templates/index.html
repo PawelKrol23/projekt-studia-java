@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>strona glowna</title>
@@ -12,6 +12,19 @@
 
 <div th:insert="~{commons :: header}"></div>
 <div th:insert="~{commons :: navbar}"></div>
+<div>
+    <span sec:authorize="isAuthenticated()">
+        <form th:action="@{/uzytkownik/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        <h1 sec:authorize="isAuthenticated()">Hello <span sec:authentication="name"></span></h1>
+    </span>
+</div>
+    <div sec:authorize="!isAuthenticated()">
+        <form th:action="@{/uzytkownik/zaloguj}" method="post">
+            <input type="submit" value="Sign in"/>
+        </form>
+    </div>
 
     <div class="p-2 container-fluid d-flex justify-content-center">
         <h2>Strona główna</h2>
