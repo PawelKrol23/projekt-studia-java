@@ -39,6 +39,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/uzytkownik/zarejestruj").anonymous() //TODO: dodać przekierowanie gdy ktoś jest już zalogowany zeby nie było erroru 403
                         .requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
                         .requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
                         .requestMatchers("/kategorie").hasRole("ADMIN")

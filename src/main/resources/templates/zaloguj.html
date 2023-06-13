@@ -19,22 +19,34 @@
       <h3>Logowanie</h3>
     </div>
 
+
+
+
     <div class="container-fluid d-flex justify-content-center">
       <div class="card w-50 d-flex justify-content-center">
         <div class="card-body">
+
+          <div th:if="${param.error}">
+            <p style="color:red">Invalid username and password.</p>
+          </div>
+          <div th:if="${param.logout}">
+            <p style="color:blue">You have been logged out.</p>
+          </div>
+
           <form th:action="@{/uzytkownik/zaloguj}" method="post">
 
             <div class="mb-3">
-              <label for="login" class="form-label">Login</label>
-              <input id="login" class="form-control" type="text" name="login"/>
+              <label for="username" class="form-label">Username</label>
+              <input id="username" class="form-control" type="text" name="username"/>
+
             </div>
 
             <div class="mb-3">
-              <label for="haslo" class="form-label">Hasło</label>
-              <input id="haslo" class="form-control" type="password" name="haslo"/>
+              <label for="password" class="form-label">Password</label>
+              <input id="password" class="form-control" type="password" name="password"/>
             </div>
 
-            <button type="submit" class="btn btn-primary">Zaloguj</button>
+            <div><input type="submit" class="btn btn-primary" value="Zaloguj sie"name="Sign in" /></div>
           </form>
         </div>
       </div>
