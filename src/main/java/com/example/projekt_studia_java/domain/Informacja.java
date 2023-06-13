@@ -1,6 +1,7 @@
 package com.example.projekt_studia_java.domain;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +24,6 @@ public class Informacja {
     @NotBlank(message="Link nie moze byc pusty")
     private String link;
     @DateTimeFormat(pattern="yyyy-MM-dd")
+    @NotNull(message = "Data przypomnienia nie moze byc pusta")
     private LocalDate dataPrzypomnienia;
 }
