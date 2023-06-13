@@ -38,7 +38,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="data" class="form-label">Data przypomnienia</label>
-                            <input id="data" class="form-control" type="date" th:field="*{dataPrzypomnienia}"/>
+                            <input id="data" class="form-control" type="date" th:field="*{dataPrzypomnienia}" aria-describedby="validationData" th:classappend="${#fields.hasErrors('dataPrzypomnienia') ? 'is-invalid' : ' '}"/>
+                            <div id="validationData" class="invalid-feedback" th:if="${#fields.hasErrors('dataPrzypomnienia')}" th:errors="*{dataPrzypomnienia}"></div>
                         </div>
                         <div class="mb-3">
                             <label for="kategoria" class="form-label">Kategoria:</label>
