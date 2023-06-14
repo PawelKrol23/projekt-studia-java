@@ -38,12 +38,12 @@
         <td th:text="${UzytkownikEntity.mail}"></td>
         <td th:text="${UzytkownikEntity.wiek}"></td>
         <td>
-          <form action="/uzytkownicy/edytuj_uzytkownika" method="get">
+          <form action="/uzytkownik/edytuj_uzytkownika" method="get">
             <input type="hidden" name="uzytkownikDoEdycji" th:value="${UzytkownikEntity.getId()}">
             <input type="submit" value="Edytuj">
           </form>
-          <form action="/uzytkownicy/usun_uzytkownika" method="get">
-            <input type="hidden" name="informacjaDoUsuniecia" th:value="${UzytkownikEntity.getId()}">
+          <form action="/uzytkownik/usun" method="get">
+            <input type="hidden" name="uzytkownikDoUsuniecia" th:value="${UzytkownikEntity.getId()}">
             <input type="submit" value="Usuń">
           </form>
         </td>

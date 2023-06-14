@@ -30,11 +30,12 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/h2-console").permitAll()
                         .requestMatchers("/uzytkownik/zarejestruj").anonymous() //TODO: dodać przekierowanie gdy ktoś jest już zalogowany zeby nie było erroru 403
-                        .requestMatchers("/informacja").hasAnyAuthority("USER","USER_WEAK","ADMIN")
-                        .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER","ADMIN")
-                        .requestMatchers("/kategorie").hasAuthority("ADMIN")
-                        .requestMatchers("/kategorie/dodaj").hasAuthority("ADMIN")
+                        .requestMatchers("/informacja").hasAnyAuthority("USER","USER_WEAK")
+                        .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER")
+                        .requestMatchers("/kategorie").hasAuthority("USER")
+                        .requestMatchers("/kategorie/dodaj").hasAuthority("USER")
                         .requestMatchers("/uzytkownicy").hasAuthority("ADMIN")
+                        .requestMatchers("/uzytkownik").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form)->form

@@ -1,6 +1,8 @@
 package com.example.projekt_studia_java.controllers;
 
 
+import com.example.projekt_studia_java.domain.Informacja;
+import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.domain.db.UzytkownikEntity;
 import com.example.projekt_studia_java.services.UzytkownikService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,10 +14,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -29,7 +28,7 @@ public class UzytkownikController {
     @GetMapping
     public String getAllData(Model model) {
         model.addAttribute("uzytkownicy",uzytkownikService.getUzytkownicy());
-        return "uzytkownik";
+        return "uzytkownicy";
     }
     @GetMapping("/zarejestruj")
     public String formularzDodawaniaUzytkownika(Model model) {
@@ -62,4 +61,29 @@ public class UzytkownikController {
 
         return "redirect:/";
     }
+    @GetMapping("/edytuj_uzytkownika")
+    public String formularzEdycjiUzytkownika(Model model, @RequestParam("uzytkownikDoEdycji") int id) {
+        UzytkownikEntity uzytkownikEntity = uzytkownikService.findUzytkownik(id);
+        model.addAttribute("uzytkownicy",uzytkownikEntity);
+        model.addAttribute("id", id);
+        return "edytuj_uzytkownika";
+    }
+    @PostMapping("/edytuj_uzytkownika")
+    public String edytujInformacja(@Valid @ModelAttribute("uzytkownicy") UzytkownikEntity uzytkownik, @RequestParam("id") int id, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            model.addAttribute("uzytkownicy",uzytkownikService.getUzytkownicy());
+            return "edytuj_uzytkownika";
+        }
+        UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);
+        uzytkownikService.usun(uzytkownikDoEdycji);
+        uzytkownikService.zapisz(uzytkownik);
+        return "redirect:/uzytkownik";
+    }
+    @GetMapping("/usun")
+    public String usuwanie(Model model, @RequestParam("uzytkownikDoUsuniecia") int id) {
+        UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);
+        uzytkownikService.usun(uzytkownikDoEdycji);
+        return "redirect:/uzytkownik";
+    }
+
 }
