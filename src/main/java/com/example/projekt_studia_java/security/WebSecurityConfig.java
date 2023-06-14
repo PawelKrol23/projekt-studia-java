@@ -51,10 +51,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/h2-console").permitAll()
                         .requestMatchers("/uzytkownik/zarejestruj").anonymous() //TODO: dodać przekierowanie gdy ktoś jest już zalogowany zeby nie było erroru 403
-                        .requestMatchers("/informacja").hasAnyRole("USER","USER_WEAK","ADMIN")
-                        .requestMatchers("/informacja/dodaj").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/informacja").hasAnyAuthority("USER","USER_WEAK","ADMIN")
+                        .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER","ADMIN")
                         //.requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
-                        .requestMatchers("/kategorie").hasRole("ADMIN")
+                        .requestMatchers("/kategorie").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form)->form
