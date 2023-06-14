@@ -22,27 +22,6 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    /*
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withUsername("user1")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-        UserDetails weak_user =
-                User.withUsername("user2")
-                        .password("good")
-                        .roles("USER_WEAK")
-                        .build();
-        UserDetails admin =
-                User.withUsername("admin")
-                        .password("best")
-                        .roles("ADMIN")
-                        .build();
-        return new InMemoryUserDetailsManager(user,admin,weak_user);
-    }
-    */
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -53,7 +32,6 @@ public class WebSecurityConfig {
                         .requestMatchers("/uzytkownik/zarejestruj").anonymous() //TODO: dodać przekierowanie gdy ktoś jest już zalogowany zeby nie było erroru 403
                         .requestMatchers("/informacja").hasAnyAuthority("USER","USER_WEAK","ADMIN")
                         .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER","ADMIN")
-                        //.requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
                         .requestMatchers("/kategorie").hasAuthority("ADMIN")
                         .requestMatchers("/kategorie/dodaj").hasAuthority("ADMIN")
                         .requestMatchers("/uzytkownicy").hasAuthority("ADMIN")
