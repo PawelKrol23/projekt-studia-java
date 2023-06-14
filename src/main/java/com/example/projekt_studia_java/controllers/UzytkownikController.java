@@ -75,8 +75,12 @@ public class UzytkownikController {
             return "edytuj_uzytkownika";
         }
         UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);
-        uzytkownikService.usun(uzytkownikDoEdycji);
-        uzytkownikService.zapisz(uzytkownik);
+        uzytkownikDoEdycji.setImie(uzytkownik.getImie());
+        uzytkownikDoEdycji.setNazwisko(uzytkownik.getNazwisko());
+        uzytkownikDoEdycji.setLogin(uzytkownik.getLogin());
+        uzytkownikDoEdycji.setMail(uzytkownik.getMail());
+        uzytkownikDoEdycji.setWiek(uzytkownik.getWiek());
+        uzytkownikService.zapisz(uzytkownikDoEdycji);
         return "redirect:/uzytkownik";
     }
     @GetMapping("/usun")
