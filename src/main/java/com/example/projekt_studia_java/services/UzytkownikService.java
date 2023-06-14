@@ -1,5 +1,6 @@
 package com.example.projekt_studia_java.services;
 
+import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.domain.db.UzytkownikEntity;
 import com.example.projekt_studia_java.repositories.UzytkownikRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,12 @@ public class UzytkownikService {
 
     public void zapisz(UzytkownikEntity uzytkownik) {
         uzytkownikRepository.save(uzytkownik);
+    }
+    public UzytkownikEntity findUzytkownik(int id)
+    {
+        return uzytkownikRepository.findById(id).get();
+    }
+    public void usun(UzytkownikEntity uzytkownik) {
+        uzytkownikRepository.delete(uzytkownik);
     }
 }
