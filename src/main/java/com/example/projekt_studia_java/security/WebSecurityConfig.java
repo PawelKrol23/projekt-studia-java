@@ -55,6 +55,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER","ADMIN")
                         //.requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
                         .requestMatchers("/kategorie").hasAuthority("ADMIN")
+                        .requestMatchers("/kategorie/dodaj").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form)->form

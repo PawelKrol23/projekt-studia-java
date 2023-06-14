@@ -18,12 +18,12 @@
 
                 <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/}">Strona główna</a>
                 <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja}">Informacje</a>
-                <span sec:authorize="!hasRole('USER_WEAK')">
+                <span sec:authorize="!hasAuthority('USER_WEAK')">
                     <div class="d-flex">
                     <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja/dodaj}">Dodaj informację</a>
                     </div>
                 </span>
-                <span sec:authorize="hasRole('ADMIN')">
+                <span sec:authorize="hasAuthority('ADMIN')">
                     <div class="d-flex">
                     <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/kategorie}">Dodaj kategorię</a>
                     </div>
