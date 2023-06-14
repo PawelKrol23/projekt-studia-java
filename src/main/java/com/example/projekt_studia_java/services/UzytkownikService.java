@@ -1,6 +1,6 @@
 package com.example.projekt_studia_java.services;
 
-import com.example.projekt_studia_java.domain.Uzytkownik;
+import com.example.projekt_studia_java.domain.db.UzytkownikEntity;
 import com.example.projekt_studia_java.repositories.UzytkownikRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ import java.util.List;
 public class UzytkownikService {
     private final UzytkownikRepository uzytkownikRepository;
 
-    public List<Uzytkownik> getUzytkownicy() {
+    public List<UzytkownikEntity> getUzytkownicy() {
         return uzytkownikRepository.findAll();
     }
 
-    public void zapisz(Uzytkownik uzytkownik) {
+    public void zapisz(UzytkownikEntity uzytkownik) {
         uzytkownikRepository.save(uzytkownik);
     }
 }

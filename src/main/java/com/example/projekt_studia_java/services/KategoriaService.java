@@ -1,7 +1,6 @@
 package com.example.projekt_studia_java.services;
 
 import com.example.projekt_studia_java.domain.Kategoria;
-import com.example.projekt_studia_java.domain.Uzytkownik;
 import com.example.projekt_studia_java.domain.db.KategoriaEntity;
 import com.example.projekt_studia_java.repositories.KategoriaRepository;
 import lombok.RequiredArgsConstructor;

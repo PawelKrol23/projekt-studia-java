@@ -1,7 +1,7 @@
 package com.example.projekt_studia_java.controllers;
 
 
-import com.example.projekt_studia_java.domain.Uzytkownik;
+import com.example.projekt_studia_java.domain.db.UzytkownikEntity;
 import com.example.projekt_studia_java.services.UzytkownikService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/uzytkownik")
 @RequiredArgsConstructor
 public class UzytkownikController {
+
+   // @Autowired
+    //BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UzytkownikService uzytkownikService;
     @GetMapping
     public String getAllData(Model model) {
@@ -30,11 +33,12 @@ public class UzytkownikController {
     }
     @GetMapping("/zarejestruj")
     public String formularzDodawaniaUzytkownika(Model model) {
-        model.addAttribute("newUzytkownik", new Uzytkownik());
+        model.addAttribute("newUzytkownik", new UzytkownikEntity());
+
         return "zarejestruj";
     }
     @PostMapping("/zarejestruj")
-    public String dodajUzytkownika(@Valid @ModelAttribute("newUzytkownik") Uzytkownik newUzytkownik, BindingResult result){
+    public String dodajUzytkownika(@Valid @ModelAttribute("newUzytkownik") UzytkownikEntity newUzytkownik, BindingResult result){
         if(result.hasErrors())
         {
            return "zarejestruj";

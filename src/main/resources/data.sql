@@ -24,3 +24,7 @@ VALUES ('2022-05-12 00:00:00', '2022-06-12', 'www.kompletnie_inny_link.com', 'sz
 -- Uzytkownicy
 INSERT INTO Uzytkownik (imie, nazwisko, login, haslo, mail, wiek)
 VALUES ('szef', 'szefu', 'admin', 'admin', 'mail@admina.pl', 28);
+
+--Role
+INSERT INTO Role (rola, Uzytkownik_id)
+VALUES ('ADMIN', SELECT id FROM Uzytkownik WHERE login = 'admin');
