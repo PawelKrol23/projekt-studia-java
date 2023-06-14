@@ -40,8 +40,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/uzytkownik/zarejestruj").anonymous() //TODO: dodać przekierowanie gdy ktoś jest już zalogowany zeby nie było erroru 403
-                        .requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
-                        .requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
+                        .requestMatchers("/informacja").hasAnyRole("USER","USER_WEAK","ADMIN")
+                        .requestMatchers("/informacja/dodaj").hasAnyRole("USER","ADMIN")
+                        //.requestMatchers("/informacja").hasAnyRole("USER","WEAK_USER","ADMIN")
                         .requestMatchers("/kategorie").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -58,4 +59,6 @@ public class WebSecurityConfig {
         int rounds = 12;
         return NoOpPasswordEncoder.getInstance();
     }
+
+
 }
