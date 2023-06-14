@@ -12,36 +12,17 @@
 
 <nav th:fragment="navbar" class="bg-primary" data-bs-theme="dark">
     <div class="container-fluid d-flex justify-content-between">
-        <span sec:authorize="isAuthenticated()">
         <div class="d-flex">
-
-
                 <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/}">Strona główna</a>
-                <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja}">Informacje</a>
-                <span sec:authorize="!hasAuthority('USER_WEAK')">
-                    <div class="d-flex">
-                    <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja/dodaj}">Dodaj informację</a>
-                    </div>
-                </span>
-                <span sec:authorize="hasAuthority('ADMIN')">
-                    <div class="d-flex">
-                    <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/kategorie}">Dodaj kategorię</a>
-                    </div>
-                </span>
-
-
+                <a sec:authorize-url="/informacja" class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja}">Informacje</a>
+                <a sec:authorize-url="/informacja/dodaj" class="p-3 text-light text-decoration-none fw-bold" th:href="@{/informacja/dodaj}">Dodaj informację</a>
+                <a sec:authorize-url="/kategorie" class="p-3 text-light text-decoration-none fw-bold" th:href="@{/kategorie}">Dodaj kategorię</a>
         </div>
-        </span>
-
-        <span sec:authorize="isAnonymous()">
-            <div class="d-flex">
-
-                <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/uzytkownik/zaloguj}">Zaloguj się</a>
-
-                <a class="p-3 text-light text-decoration-none fw-bold" th:href="@{/uzytkownik/zarejestruj}">Zarejestruj się</a>
-
-            </div>
-        </span>
+        <div class="d-flex">
+            <a sec:authorize="isAnonymous()" class="p-3 text-light text-decoration-none fw-bold" th:href="@{/uzytkownik/zaloguj}">Zaloguj się</a>
+            <a sec:authorize="isAnonymous()" class="p-3 text-light text-decoration-none fw-bold" th:href="@{/uzytkownik/zarejestruj}">Zarejestruj się</a>
+            <a sec:authorize="!isAnonymous()" class="p-3 text-light text-decoration-none fw-bold" th:href="@{/uzytkownik/logout}">Wyloguj</a>
+        </div>
     </div>
 </nav>
 

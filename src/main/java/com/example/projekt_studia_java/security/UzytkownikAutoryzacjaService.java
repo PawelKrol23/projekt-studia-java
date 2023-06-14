@@ -16,25 +16,21 @@ import java.util.stream.Collectors;
 public class UzytkownikAutoryzacjaService implements UserDetailsService {
     @Autowired
     UzytkownikRepository users;
-   // @Autowired
-            // AuthoritiesRepository authorities;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        UzytkownikEntity user = users.findByLogin(username)!=null?users.findByLogin(username): null;
+        UzytkownikEntity user = users.findByLogin(username);
+
         if(user == null)
             throw new UsernameNotFoundException("User " +username + " not found !");
         else {
-            UserDetails userDetails =new User(
+            UserDetails userDetails = new User(
                     user.getLogin(),
                     user.getHaslo(),
-                    user.getRole()
-                            .stream()
-                            .map(role-> {
-                                System.out.println("autorities " + role.getRola());
-                                return new SimpleGrantedAuthority(role.getRola());
-                            })
-                            .collect( Collectors.toSet()));
-            return userDetails ;
+                    user.getRole().stream()
+                            .map(role-> new SimpleGrantedAuthority(role.getRola()))
+                            .collect(Collectors.toSet()));
+            return userDetails;
         }
     }
 

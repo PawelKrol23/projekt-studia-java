@@ -53,12 +53,13 @@ public class UzytkownikController {
     {
         return "zaloguj";
     }
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, null, auth);
         }
-        return "index";
+
+        return "redirect:/";
     }
 }
