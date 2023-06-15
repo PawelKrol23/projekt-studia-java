@@ -5,9 +5,11 @@ import com.example.projekt_studia_java.domain.db.RolaEntity;
 import com.example.projekt_studia_java.domain.db.UzytkownikEntity;
 import com.example.projekt_studia_java.repositories.RolaRepository;
 import com.example.projekt_studia_java.repositories.UzytkownikRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,12 +35,19 @@ public class UzytkownikService {
         rolaRepository.save(rola);
         uzytkownik.getRole().add(rola);
         }
+    @Transactional
     public void nadajRoleEdycja(UzytkownikEntity uzytkownik, String rolka){
+
         RolaEntity rola = new RolaEntity();
+        rolaRepository.deleteAllByUzytkownikEntity(uzytkownik);
+
         rola.setRola(rolka);
         rola.setUzytkownikEntity(uzytkownik);
         rolaRepository.save(rola);
         uzytkownik.getRole().add(rola);
+
+        System.out.println(uzytkownik.getRole());
+
     }
     public void usun(UzytkownikEntity uzytkownik) {
         uzytkownikRepository.delete(uzytkownik);

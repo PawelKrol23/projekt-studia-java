@@ -69,8 +69,7 @@ public class UzytkownikController {
         return "edytuj_uzytkownika";
     }
     @PostMapping("/edytuj_uzytkownika")
-    public String edytujInformacja(@Valid @ModelAttribute("uzytkownicy") UzytkownikEntity uzytkownik, @RequestParam("id") int id, @RequestParam("rolka") String rolka, BindingResult result, Model model) {
-        System.out.println("XDDDDD");
+    public String edytujUzytkownika(@Valid @ModelAttribute("uzytkownicy") UzytkownikEntity uzytkownik, @RequestParam("id") int id, @RequestParam("rolka") String rolka, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("uzytkownicy",uzytkownikService.getUzytkownicy());
             return "edytuj_uzytkownika";
@@ -83,7 +82,9 @@ public class UzytkownikController {
         uzytkownikDoEdycji.setMail(uzytkownik.getMail());
         uzytkownikDoEdycji.setWiek(uzytkownik.getWiek());
         uzytkownikService.nadajRoleEdycja(uzytkownikDoEdycji,rolka);
+        System.out.println(uzytkownikDoEdycji.getRole());
         uzytkownikService.zapisz(uzytkownikDoEdycji);
+        System.out.println(uzytkownikDoEdycji.getRole());
         return "redirect:/uzytkownik";
     }
     //@GetMapping("/usun")
@@ -94,11 +95,5 @@ public class UzytkownikController {
         return "redirect:/uzytkownik";
     }
 
-//    @GetMapping("/usun")
-//    public String usuwanie(Model model, @RequestParam("uzytkownikDoUsuniecia") int id) {
-//        UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);
-//        uzytkownikService.usun(uzytkownikDoEdycji);
-//        return "redirect:/uzytkownik";
-//    }
 
 }
