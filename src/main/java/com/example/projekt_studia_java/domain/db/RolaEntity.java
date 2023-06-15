@@ -17,4 +17,10 @@ public class RolaEntity {
     @JoinColumn(name="Uzytkownik_id")
     @ManyToOne
     UzytkownikEntity uzytkownikEntity;
+
+    @Override
+    public String toString()
+    {
+        return rola;
+    }
 }

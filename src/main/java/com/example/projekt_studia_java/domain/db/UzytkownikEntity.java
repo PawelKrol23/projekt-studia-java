@@ -42,4 +42,14 @@ public class UzytkownikEntity {
     @OneToMany (mappedBy = "uzytkownikEntity",fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     List<RolaEntity> role = new ArrayList<>();
 
+    public String wyswietl()
+    {
+        StringBuilder role_wypisz = new StringBuilder();
+        for(RolaEntity rola : role)
+        {
+            role_wypisz.append(" ").append(rola);
+        }
+        return role_wypisz.toString();
+    }
+
 }

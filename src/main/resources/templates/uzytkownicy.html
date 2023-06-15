@@ -27,6 +27,7 @@
         <th scope="col">Login</th>
         <th scope="col">Mail</th>
         <th scope="col">Wiek</th>
+        <th scope="col">Role</th>
         <th scope="col">Edycja</th>
       </tr>
       </thead>
@@ -37,6 +38,7 @@
         <td th:text="${UzytkownikEntity.Login}"></td>
         <td th:text="${UzytkownikEntity.mail}"></td>
         <td th:text="${UzytkownikEntity.wiek}"></td>
+        <td th:text="${UzytkownikEntity.wyswietl()}"></td>
         <td>
           <form action="/uzytkownik/edytuj_uzytkownika" method="get">
             <input type="hidden" name="uzytkownikDoEdycji" th:value="${UzytkownikEntity.getId()}">
