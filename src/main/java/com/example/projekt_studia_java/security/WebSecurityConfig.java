@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                 )
                 .formLogin((form)->form
                         .loginPage("/uzytkownik/zaloguj")
+                        .defaultSuccessUrl("/",true)
                         .permitAll()
                 )
                 .logout((logout) -> logout.logoutSuccessUrl("/").permitAll());

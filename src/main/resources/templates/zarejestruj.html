@@ -33,14 +33,14 @@
               <div id="validationNazwisko" class="invalid-feedback" th:if="${#fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}"></div>
             </div>
             <div class="mb-3">
-              <label for="haslo" class="form-label">Hasło</label>
-              <input id="haslo" class="form-control" type="password" th:field="*{haslo}" aria-describedby="validationHaslo" th:classappend="${#fields.hasErrors('haslo') ? 'is-invalid' : ' '}"/>
-              <div id="validationHaslo" class="invalid-feedback" th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}"></div>
-            </div>
-            <div class="mb-3">
               <label for="login" class="form-label">Login</label>
               <input id="login" class="form-control" type="text" th:field="*{login}" aria-describedby="validationLogin" th:classappend="${#fields.hasErrors('login') ? 'is-invalid' : ' '}"/>
               <div id="validationLogin" class="invalid-feedback" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+            </div>
+            <div class="mb-3">
+              <label for="haslo" class="form-label">Hasło</label>
+              <input id="haslo" class="form-control" type="password" th:field="*{haslo}" aria-describedby="validationHaslo" th:classappend="${#fields.hasErrors('haslo') ? 'is-invalid' : ' '}"/>
+              <div id="validationHaslo" class="invalid-feedback" th:if="${#fields.hasErrors('haslo')}" th:errors="*{haslo}"></div>
             </div>
             <div class="mb-3">
               <label for="mail" class="form-label">Email</label>
