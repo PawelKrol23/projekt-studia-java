@@ -33,6 +33,14 @@ public class UzytkownikService {
         rolaRepository.save(rola);
         uzytkownik.getRole().add(rola);
         }
+    public void nadajRoleEdycja(UzytkownikEntity uzytkownik, String rolka){
+        uzytkownik.setRole(null);
+        RolaEntity rola = new RolaEntity();
+        rola.setRola(rolka);
+        rola.setUzytkownikEntity(uzytkownik);
+        rolaRepository.save(rola);
+        uzytkownik.getRole().add(rola);
+    }
     public void usun(UzytkownikEntity uzytkownik) {
         uzytkownikRepository.delete(uzytkownik);
     }
