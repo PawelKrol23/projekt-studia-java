@@ -62,6 +62,7 @@
             <th scope="col">Link</th>
             <th scope="col">Data Dodania</th>
             <th scope="col">Data Przypomnienia</th>
+            <th scope="col">Uzytkownik</th>
             <th sec:authorize="hasAuthority('USER')" scope="col">Edycja</th>
         </tr>
         </thead>
@@ -73,6 +74,7 @@
             <td th:text="${informacjaEntity.link}"></td>
             <td th:text="${informacjaEntity.writeDataDodania()}"></td>
             <td th:text="${informacjaEntity.writeDataPrzypomnienia()}"></td>
+            <td th:text="${informacjaEntity.uzytkownik.login}"></td>
             <td sec:authorize="hasAuthority('USER')">
                 <form sec:authorize="hasAuthority('USER')" action="/informacja/edytuj" method="get" >
                     <input type="hidden" name="informacjaDoEdycji" th:value="${informacjaEntity.getId()}">
