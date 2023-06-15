@@ -37,9 +37,9 @@ VALUES ('USER_WEAK', SELECT id FROM Uzytkownik WHERE login = 'userweak');
 
 -- Informacje
 INSERT INTO Informacja (data_dodania, data_przypomnienia, link, tresc, tytul, kategoria_id, Uzytkownik_id)
-VALUES ('2023-01-12 00:00:00', '2021-06-12', 'www.link.com', 'okrągła piłka', 'piłka', SELECT id FROM kategoria WHERE nazwa = 'sport', SELECT id FROM uzytkownik WHERE login = 'user');
+VALUES ('2023-01-12 00:00:00', '2021-06-12', 'www.link.com', 'okrągła piłka', 'piłka', SELECT id FROM kategoria WHERE nazwa = 'sport', SELECT id FROM uzytkownik WHERE login = 'userek');
 INSERT INTO Informacja (data_dodania, data_przypomnienia, link, tresc, tytul, kategoria_id, Uzytkownik_id)
-VALUES ('2023-04-12 00:00:00', '2023-06-12', 'www.inny_link.com', 'ładny obraz', 'obraz', SELECT id FROM kategoria WHERE nazwa = 'sztuka', SELECT id FROM uzytkownik WHERE login = 'user');
+VALUES ('2023-04-12 00:00:00', '2023-06-12', 'www.inny_link.com', 'ładny obraz', 'obraz', SELECT id FROM kategoria WHERE nazwa = 'sztuka', SELECT id FROM uzytkownik WHERE login = 'userek');
 INSERT INTO Informacja (data_dodania, data_przypomnienia, link, tresc, tytul, kategoria_id, Uzytkownik_id)
 VALUES ('2023-04-30 00:00:00', '2022-04-12', 'www.zupełnie_inny_link.com', 'przyszny batonik', 'batonik', SELECT id FROM kategoria WHERE nazwa = 'jedzenie', SELECT id FROM uzytkownik WHERE login = 'usero');
 INSERT INTO Informacja (data_dodania, data_przypomnienia, link, tresc, tytul, kategoria_id, Uzytkownik_id)

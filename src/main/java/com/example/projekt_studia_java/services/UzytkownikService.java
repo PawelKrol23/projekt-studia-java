@@ -38,17 +38,21 @@ public class UzytkownikService {
     @Transactional
     public void nadajRoleEdycja(UzytkownikEntity uzytkownik, String rolka){
 
-        RolaEntity rola = new RolaEntity();
+        ArrayList<RolaEntity> list = new ArrayList<>();
         rolaRepository.deleteAllByUzytkownikEntity(uzytkownik);
         System.out.println(rolka);
-        rola.setRola(rolka);
-        rola.setUzytkownikEntity(uzytkownik);
-        rolaRepository.save(rola);
-        uzytkownik.getRole().add(rola);
-
-        ArrayList<RolaEntity> list = new ArrayList<>();
-        list.add(rola);
-
+        String[] lista = rolka.split(",");
+        for(String a: lista)
+        {
+            RolaEntity rola = new RolaEntity();
+            rola.setRola(a);
+            rola.setUzytkownikEntity(uzytkownik);
+            rolaRepository.save(rola);
+            uzytkownik.getRole().add(rola);
+            list.add(rola);
+            System.out.println("rola: "+rola);
+            System.out.println("lista: "+list);
+        }
         uzytkownik.setRole(list);
         uzytkownikRepository.save(uzytkownik);
         uzytkownikRepository.flush();
