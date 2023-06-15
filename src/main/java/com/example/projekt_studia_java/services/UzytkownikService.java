@@ -40,13 +40,18 @@ public class UzytkownikService {
 
         RolaEntity rola = new RolaEntity();
         rolaRepository.deleteAllByUzytkownikEntity(uzytkownik);
-
+        System.out.println(rolka);
         rola.setRola(rolka);
         rola.setUzytkownikEntity(uzytkownik);
         rolaRepository.save(rola);
         uzytkownik.getRole().add(rola);
 
-        System.out.println(uzytkownik.getRole());
+        ArrayList<RolaEntity> list = new ArrayList<>();
+        list.add(rola);
+
+        uzytkownik.setRole(list);
+        uzytkownikRepository.save(uzytkownik);
+        uzytkownikRepository.flush();
 
     }
     public void usun(UzytkownikEntity uzytkownik) {

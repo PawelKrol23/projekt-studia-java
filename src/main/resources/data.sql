@@ -17,7 +17,7 @@ VALUES ('Szef', 'Szefu', 'admin', 'admin', 'mail@admina.pl', 28);
 INSERT INTO Uzytkownik (imie, nazwisko, login, haslo, mail, wiek)
 VALUES ('Adminek', 'Adminek', 'admino', 'admino', 'mail@admina2.pl', 20);
 INSERT INTO Uzytkownik (imie, nazwisko, login, haslo, mail, wiek)
-VALUES ('Szefito', 'Szefito', 'user', 'user', 'mail@user.pl', 20);
+VALUES ('Szefito', 'Szefito', 'userek', 'userek', 'mail@user.pl', 20);
 INSERT INTO Uzytkownik (imie, nazwisko, login, haslo, mail, wiek)
 VALUES ('Szefi', 'Szefi', 'usero', 'usero', 'innymail@user.pl', 21);
 INSERT INTO Uzytkownik (imie, nazwisko, login, haslo, mail, wiek)
@@ -29,7 +29,7 @@ VALUES ('ADMIN', SELECT id FROM Uzytkownik WHERE login = 'admin');
 INSERT INTO Role (rola, Uzytkownik_id)
 VALUES ('ADMIN', SELECT id FROM Uzytkownik WHERE login = 'admino');
 INSERT INTO Role (rola, Uzytkownik_id)
-VALUES ('USER', SELECT id FROM Uzytkownik WHERE login = 'user');
+VALUES ('USER', SELECT id FROM Uzytkownik WHERE login = 'userek');
 INSERT INTO Role (rola, Uzytkownik_id)
 VALUES ('USER', SELECT id FROM Uzytkownik WHERE login = 'usero');
 INSERT INTO Role (rola, Uzytkownik_id)
