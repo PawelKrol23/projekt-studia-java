@@ -3,9 +3,13 @@ package com.example.projekt_studia_java.services;
 import com.example.projekt_studia_java.domain.Informacja;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.domain.db.KategoriaEntity;
+import com.example.projekt_studia_java.domain.db.RolaEntity;
 import com.example.projekt_studia_java.repositories.InformacjaRepository;
 import com.example.projekt_studia_java.repositories.KategoriaRepository;
+import com.example.projekt_studia_java.repositories.UzytkownikRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,14 +22,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class InformacjaService {
     private final KategoriaRepository kategoriaRepository;
+    private final UzytkownikRepository uzytkownikRepository;
     private final InformacjaRepository informacjaRepository;
 
     public void zapisz(Informacja informacja) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         InformacjaEntity doZapisania = InformacjaEntity.builder()
                 .tresc(informacja.getTresc())
                 .link(informacja.getLink())
                 .tytul(informacja.getTytul())
                 .kategoria(kategoriaRepository.findByNazwa(informacja.getKategoria()))
+                .uzytkownik(uzytkownikRepository.findByLogin(authentication.getName()))
                 .dataPrzypomnienia(informacja.getDataPrzypomnienia())
                 .build();
 
@@ -36,6 +45,9 @@ public class InformacjaService {
     }
 
     public List<InformacjaEntity> sortFilterInformacje(String typ, String direction, String kategoria, String data) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         // Ustalenie z jakiego okresu mają być informacje
         Integer dni = null;
         if(data != null) {
@@ -56,6 +68,11 @@ public class InformacjaService {
         } else {
             informacje = informacjaRepository.findAll();
         }
+
+        // Przefiltrowanie informacji na podstawie uzytkownika
+        informacje = informacje.stream()
+                .filter(informacjaEntity -> informacjaEntity.getUzytkownik().getLogin().equals(authentication.getName()))
+                .collect(Collectors.toList());
 
         // Przefiltrowanie informacji na podstawie kategorii
         if(kategoria != null && !kategoria.equals("wszystkie")) {
