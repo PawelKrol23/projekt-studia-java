@@ -25,6 +25,7 @@ public class UzytkownikController {
    // @Autowired
     //BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UzytkownikService uzytkownikService;
+
     @GetMapping
     public String getAllData(Model model) {
         model.addAttribute("uzytkownicy",uzytkownikService.getUzytkownicy());
@@ -33,7 +34,6 @@ public class UzytkownikController {
     @GetMapping("/zarejestruj")
     public String formularzDodawaniaUzytkownika(Model model) {
         model.addAttribute("newUzytkownik", new UzytkownikEntity());
-
         return "zarejestruj";
     }
     @PostMapping("/zarejestruj")
@@ -44,7 +44,7 @@ public class UzytkownikController {
         }
 
         uzytkownikService.zapisz(newUzytkownik);
-
+        uzytkownikService.nadajRole(newUzytkownik);
         return "redirect:/uzytkownik";
     }
     @GetMapping("/zaloguj")
@@ -83,11 +83,19 @@ public class UzytkownikController {
         uzytkownikService.zapisz(uzytkownikDoEdycji);
         return "redirect:/uzytkownik";
     }
-    @GetMapping("/usun")
-    public String usuwanie(Model model, @RequestParam("uzytkownikDoUsuniecia") int id) {
+    //@GetMapping("/usun")
+    @GetMapping("/usun/{id}")
+    public String usuwanko(@PathVariable("id") int id){
         UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);
         uzytkownikService.usun(uzytkownikDoEdycji);
         return "redirect:/uzytkownik";
     }
+
+//    @GetMapping("/usun")
+//    public String usuwanie(Model model, @RequestParam("uzytkownikDoUsuniecia") int id) {
+//        UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);
+//        uzytkownikService.usun(uzytkownikDoEdycji);
+//        return "redirect:/uzytkownik";
+//    }
 
 }

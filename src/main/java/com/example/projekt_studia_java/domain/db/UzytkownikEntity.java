@@ -39,7 +39,7 @@ public class UzytkownikEntity {
     @NotNull
     private Integer wiek;
 
-    @OneToMany (mappedBy = "uzytkownikEntity",fetch = FetchType.EAGER)
+    @OneToMany (mappedBy = "uzytkownikEntity",fetch = FetchType.EAGER,cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     List<RolaEntity> role = new ArrayList<>();
 
 }

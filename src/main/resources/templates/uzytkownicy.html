@@ -42,8 +42,7 @@
             <input type="hidden" name="uzytkownikDoEdycji" th:value="${UzytkownikEntity.getId()}">
             <input type="submit" value="Edytuj">
           </form>
-          <form action="/uzytkownik/usun" method="get">
-            <input type="hidden" name="uzytkownikDoUsuniecia" th:value="${UzytkownikEntity.getId()}">
+          <form th:action="${'/uzytkownik/usun/'+UzytkownikEntity.getId()}" method="get">
             <input type="submit" value="Usuń">
           </form>
         </td>

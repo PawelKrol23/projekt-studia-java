@@ -28,7 +28,6 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/h2-console").permitAll()
                         .requestMatchers("/uzytkownik/zarejestruj").anonymous() //TODO: dodać przekierowanie gdy ktoś jest już zalogowany zeby nie było erroru 403
                         .requestMatchers("/informacja").hasAnyAuthority("USER","USER_WEAK")
                         .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER")
@@ -36,6 +35,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/kategorie/dodaj").hasAuthority("USER")
                         .requestMatchers("/uzytkownicy").hasAuthority("ADMIN")
                         .requestMatchers("/uzytkownik").hasAuthority("ADMIN")
+                        .requestMatchers("/uzytkownik/logut").authenticated()
+                        .requestMatchers("/uzytkownik/edytuj_uzytkownika").hasAuthority("ADMIN")
+                        .requestMatchers("/h2-console").hasAuthority("ADMIN")
+                        .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form)->form
