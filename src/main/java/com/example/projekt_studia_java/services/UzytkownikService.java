@@ -34,7 +34,6 @@ public class UzytkownikService {
         uzytkownik.getRole().add(rola);
         }
     public void nadajRoleEdycja(UzytkownikEntity uzytkownik, String rolka){
-        uzytkownik.setRole(null);
         RolaEntity rola = new RolaEntity();
         rola.setRola(rolka);
         rola.setUzytkownikEntity(uzytkownik);
