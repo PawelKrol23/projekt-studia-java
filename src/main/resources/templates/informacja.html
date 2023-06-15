@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Informacja</title>
@@ -61,7 +62,7 @@
             <th scope="col">Link</th>
             <th scope="col">Data Dodania</th>
             <th scope="col">Data Przypomnienia</th>
-            <th scope="col">Edycja</th>
+            <th sec:authorize="hasAuthority('USER')" scope="col">Edycja</th>
         </tr>
         </thead>
         <tbody>
@@ -72,12 +73,12 @@
             <td th:text="${informacjaEntity.link}"></td>
             <td th:text="${informacjaEntity.writeDataDodania()}"></td>
             <td th:text="${informacjaEntity.writeDataPrzypomnienia()}"></td>
-            <td>
-                <form action="/informacja/edytuj" method="get">
+            <td sec:authorize="hasAuthority('USER')">
+                <form sec:authorize="hasAuthority('USER')" action="/informacja/edytuj" method="get" >
                     <input type="hidden" name="informacjaDoEdycji" th:value="${informacjaEntity.getId()}">
                     <input type="submit" value="Edytuj">
                 </form>
-                <form action="/informacja/usun" method="get">
+                <form sec:authorize="hasAuthority('USER')" action="/informacja/usun" method="get">
                     <input type="hidden" name="informacjaDoUsuniecia" th:value="${informacjaEntity.getId()}">
                     <input type="submit" value="Usuń">
                 </form>
@@ -85,7 +86,7 @@
         </tr>
         </tbody>
     </table>
-    <a href="/informacja/dodaj" class="btn btn-primary">Dodaj nową informacje </a>
+    <a sec:authorize="hasAuthority('USER')" href="/informacja/dodaj" class="btn btn-primary">Dodaj nową informacje </a>
 </div>
     <!--<a href="/informacja/dodaj_kategoria" class="btn btn-primary">Dodaj nową kategorie </a>-->
 </div>
