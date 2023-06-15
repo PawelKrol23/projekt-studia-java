@@ -26,6 +26,9 @@ public class InformacjaEntity {
     private String tytul;
     @ManyToOne
     private KategoriaEntity kategoria;
+
+    @ManyToOne
+    private UzytkownikEntity uzytkownik;
     private String tresc;
     private String link;
     @CreationTimestamp

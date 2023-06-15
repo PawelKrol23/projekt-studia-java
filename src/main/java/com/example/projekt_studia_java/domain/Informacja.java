@@ -19,6 +19,8 @@ public class Informacja {
     @Size(min=3,max=20,message = "Nazwa musi miec od 3 do 20 liter")
     private String tytul;
     private String kategoria;
+
+    private String uzytkownik;
     @Size(min=5,max=500,message = "Tresc musi miec od 5 do 500 liter")
     private String tresc;
     @NotBlank(message="Link nie moze byc pusty")
