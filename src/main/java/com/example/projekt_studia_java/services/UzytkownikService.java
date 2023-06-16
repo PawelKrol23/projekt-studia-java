@@ -54,13 +54,8 @@ public class UzytkownikService {
             RolaEntity rola = new RolaEntity();
             rola.setRola(a);
             rola.setUzytkownikEntity(uzytkownikDoEdycji);
-            RolaEntity zapisanaRola = rolaRepository.save(rola);
-            uzytkownik.getRole().add(zapisanaRola);
+            rolaRepository.save(rola);
         }
-
-        // Zapisanie i odswiezenie bazy danych
-        uzytkownikRepository.save(uzytkownikDoEdycji);
-        uzytkownikRepository.flush();
     }
     public void usun(UzytkownikEntity uzytkownik) {
         uzytkownikRepository.delete(uzytkownik);
