@@ -1,6 +1,5 @@
 package com.example.projekt_studia_java.services;
 
-import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.domain.db.RolaEntity;
 import com.example.projekt_studia_java.domain.db.UzytkownikEntity;
 import com.example.projekt_studia_java.repositories.RolaRepository;
@@ -9,7 +8,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,29 +32,35 @@ public class UzytkownikService {
         rola.setUzytkownikEntity(uzytkownik);
         rolaRepository.save(rola);
         uzytkownik.getRole().add(rola);
-        }
+    }
     @Transactional
-    public void nadajRoleEdycja(UzytkownikEntity uzytkownik, String rolka){
+    public void edytujUzytkownika(UzytkownikEntity uzytkownik, String rolka, int id){
 
-        ArrayList<RolaEntity> list = new ArrayList<>();
-        rolaRepository.deleteAllByUzytkownikEntity(uzytkownik);
-        System.out.println(rolka);
-        String[] lista = rolka.split(",");
-        for(String a: lista)
+        // Pobranie uzytkownika z bazy i aktualizacja wartosci
+        UzytkownikEntity uzytkownikDoEdycji = uzytkownikRepository.findById(id).get();
+        uzytkownikDoEdycji.setImie(uzytkownik.getImie());
+        uzytkownikDoEdycji.setNazwisko(uzytkownik.getNazwisko());
+        uzytkownikDoEdycji.setLogin(uzytkownik.getLogin());
+        uzytkownikDoEdycji.setMail(uzytkownik.getMail());
+        uzytkownikDoEdycji.setWiek(uzytkownik.getWiek());
+
+        // Usuniecie istniejacych rol
+        rolaRepository.deleteAllByUzytkownikEntity(uzytkownikDoEdycji);
+        uzytkownik.getRole().clear();
+
+        // Wstawienie nowych rol
+        for(String a: rolka.split(","))
         {
             RolaEntity rola = new RolaEntity();
             rola.setRola(a);
-            rola.setUzytkownikEntity(uzytkownik);
-            rolaRepository.save(rola);
+            rola.setUzytkownikEntity(uzytkownikDoEdycji);
             uzytkownik.getRole().add(rola);
-            list.add(rola);
-            System.out.println("rola: "+rola);
-            System.out.println("lista: "+list);
+            rolaRepository.save(rola);
         }
-        uzytkownik.setRole(list);
-        uzytkownikRepository.save(uzytkownik);
-        uzytkownikRepository.flush();
 
+        // Zapisanie i odswiezenie bazy danych
+        uzytkownikRepository.save(uzytkownikDoEdycji);
+        uzytkownikRepository.flush();
     }
     public void usun(UzytkownikEntity uzytkownik) {
         uzytkownikRepository.delete(uzytkownik);

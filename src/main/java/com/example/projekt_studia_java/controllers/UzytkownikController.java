@@ -1,8 +1,6 @@
 package com.example.projekt_studia_java.controllers;
 
 
-import com.example.projekt_studia_java.domain.Informacja;
-import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.domain.db.UzytkownikEntity;
 import com.example.projekt_studia_java.services.UzytkownikService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +35,9 @@ public class UzytkownikController {
         return "zarejestruj";
     }
     @PostMapping("/zarejestruj")
-    public String dodajUzytkownika(@Valid @ModelAttribute("newUzytkownik") UzytkownikEntity newUzytkownik, BindingResult result){
+    public String dodajUzytkownika(@Valid @ModelAttribute("newUzytkownik") UzytkownikEntity newUzytkownik,
+                                   BindingResult result)
+    {
         if(result.hasErrors())
         {
            return "zarejestruj";
@@ -48,7 +48,7 @@ public class UzytkownikController {
         return "redirect:/uzytkownik";
     }
     @GetMapping("/zaloguj")
-    public String logowanieUzytkownika(Model model)
+    public String logowanieUzytkownika()
     {
         return "zaloguj";
     }
@@ -69,25 +69,20 @@ public class UzytkownikController {
         return "edytuj_uzytkownika";
     }
     @PostMapping("/edytuj_uzytkownika")
-    public String edytujUzytkownika(@Valid @ModelAttribute("uzytkownicy") UzytkownikEntity uzytkownik, @RequestParam("id") int id, @RequestParam("rolka") String rolka, BindingResult result, Model model) {
+    public String edytujUzytkownika(@Valid @ModelAttribute("uzytkownicy") UzytkownikEntity uzytkownik,
+                                    BindingResult result,
+                                    @RequestParam("id") int id,
+                                    @RequestParam("rolka") String rolka)
+    {
         if(result.hasErrors()) {
-            model.addAttribute("uzytkownicy",uzytkownikService.getUzytkownicy());
             return "edytuj_uzytkownika";
         }
-        UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);
-        uzytkownikDoEdycji.setImie(uzytkownik.getImie());
 
-        uzytkownikDoEdycji.setNazwisko(uzytkownik.getNazwisko());
-        uzytkownikDoEdycji.setLogin(uzytkownik.getLogin());
-        uzytkownikDoEdycji.setMail(uzytkownik.getMail());
-        uzytkownikDoEdycji.setWiek(uzytkownik.getWiek());
-        uzytkownikService.nadajRoleEdycja(uzytkownikDoEdycji,rolka);
-        System.out.println(uzytkownikDoEdycji.getRole());
-        uzytkownikService.zapisz(uzytkownikDoEdycji);
-        System.out.println(uzytkownikDoEdycji.getRole());
+        uzytkownikService.edytujUzytkownika(uzytkownik, rolka, id);
+
         return "redirect:/uzytkownik";
     }
-    //@GetMapping("/usun")
+
     @GetMapping("/usun/{id}")
     public String usuwanko(@PathVariable("id") int id){
         UzytkownikEntity uzytkownikDoEdycji = uzytkownikService.findUzytkownik(id);

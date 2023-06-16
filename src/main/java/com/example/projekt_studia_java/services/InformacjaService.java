@@ -3,7 +3,6 @@ package com.example.projekt_studia_java.services;
 import com.example.projekt_studia_java.domain.Informacja;
 import com.example.projekt_studia_java.domain.db.InformacjaEntity;
 import com.example.projekt_studia_java.domain.db.KategoriaEntity;
-import com.example.projekt_studia_java.domain.db.RolaEntity;
 import com.example.projekt_studia_java.repositories.InformacjaRepository;
 import com.example.projekt_studia_java.repositories.KategoriaRepository;
 import com.example.projekt_studia_java.repositories.UzytkownikRepository;
@@ -46,8 +45,6 @@ public class InformacjaService {
 
     public List<InformacjaEntity> sortFilterInformacje(String typ, String direction, String kategoria, String data) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         // Ustalenie z jakiego okresu mają być informacje
         Integer dni = null;
         if(data != null) {
@@ -70,6 +67,7 @@ public class InformacjaService {
         }
 
         // Przefiltrowanie informacji na podstawie uzytkownika
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         informacje = informacje.stream()
                 .filter(informacjaEntity -> informacjaEntity.getUzytkownik().getLogin().equals(authentication.getName()))
                 .collect(Collectors.toList());

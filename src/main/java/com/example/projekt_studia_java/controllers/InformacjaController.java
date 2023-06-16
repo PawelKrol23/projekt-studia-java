@@ -142,7 +142,10 @@ public class InformacjaController {
         return "edytuj";
     }
     @PostMapping("/edytuj")
-    public String edytujInformacja(@Valid @ModelAttribute("informacja") Informacja informacja, @RequestParam("id") int id, BindingResult result, Model model) {
+    public String edytujInformacja(@Valid @ModelAttribute("informacja") Informacja informacja,
+                                   BindingResult result,
+                                   @RequestParam("id") int id,
+                                   Model model) {
 
         if(result.hasErrors()) {
             model.addAttribute("kategorie",kategoriaService.getKategorie());
@@ -156,7 +159,7 @@ public class InformacjaController {
         return "redirect:/informacja";
     }
     @GetMapping("/usun")
-    public String usuwanie(Model model, @RequestParam("informacjaDoUsuniecia") int id) {
+    public String usuwanie(@RequestParam("informacjaDoUsuniecia") int id) {
 
         InformacjaEntity informacjaDoEdycji = informacjaService.findInformacja(id);
         informacjaService.usun(informacjaDoEdycji);
