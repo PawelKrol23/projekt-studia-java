@@ -40,10 +40,27 @@
                             <input id="mail" class="form-control" type="text" th:field="*{mail}" aria-describedby="validationMail" th:classappend="${#fields.hasErrors('mail') ? 'is-invalid' : ' '}"/>
                             <div id="validationMail" class="invalid-feedback" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></div>
                         </div>
-                        Rola :<br>
-                        <input type="checkbox" name="rolka" value="ADMIN">Admin
-                        <input type="checkbox" name="rolka" value="USER">User
-                        <input type="checkbox" name="rolka" value="USER_WEAK">User_WEAK<br>
+                        <div class="mb-3">
+                            Role<br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="rolka" value="ADMIN" id="flexCheckADMIN" th:checked="${uzytkownicy.zawieraRole('ADMIN')}">
+                                <label class="form-check-label" for="flexCheckADMIN">
+                                    Admin
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="rolka" value="USER" id="flexCheckUSER" th:checked="${uzytkownicy.zawieraRole('USER')}">
+                                <label class="form-check-label" for="flexCheckUSER">
+                                    User
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="rolka" value="USER_WEAK" id="flexCheckUSER_WEAK" th:checked="${uzytkownicy.zawieraRole('USER_WEAK')}">
+                                <label class="form-check-label" for="flexCheckUSER_WEAK">
+                                    User_WEAK
+                                </label>
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="wiek" class="form-label">Wiek</label>
                             <input id="wiek" class="form-control" type="number" th:field="*{wiek}" aria-describedby="validationWiek" th:classappend="${#fields.hasErrors('wiek') ? 'is-invalid' : ' '}"/>

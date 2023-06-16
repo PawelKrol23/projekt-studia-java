@@ -53,4 +53,13 @@ public class UzytkownikEntity {
         return role_wypisz.toString();
     }
 
+    public boolean zawieraRole(String nazwaRoli) {
+        for(var rola: this.getRole()) {
+            if(rola.getRola().equals(nazwaRoli)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

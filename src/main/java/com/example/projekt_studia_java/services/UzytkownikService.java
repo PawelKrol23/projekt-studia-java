@@ -46,7 +46,7 @@ public class UzytkownikService {
 
         // Usuniecie istniejacych rol
         rolaRepository.deleteAllByUzytkownikEntity(uzytkownikDoEdycji);
-        uzytkownik.getRole().clear();
+        uzytkownikDoEdycji.getRole().clear();
 
         // Wstawienie nowych rol
         for(String a: rolka.split(","))
@@ -54,8 +54,8 @@ public class UzytkownikService {
             RolaEntity rola = new RolaEntity();
             rola.setRola(a);
             rola.setUzytkownikEntity(uzytkownikDoEdycji);
-            uzytkownik.getRole().add(rola);
-            rolaRepository.save(rola);
+            RolaEntity zapisanaRola = rolaRepository.save(rola);
+            uzytkownik.getRole().add(zapisanaRola);
         }
 
         // Zapisanie i odswiezenie bazy danych
