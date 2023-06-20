@@ -1,5 +1,6 @@
 package com.example.projekt_studia_java.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,45 +20,44 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    private final DatabaseFlushLogoutHandler databaseFlushLogoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> {
-                            try {
-                                requests
-                                        .requestMatchers("/").permitAll()
-                                        .requestMatchers("/uzytkownik/zarejestruj").anonymous() //TODO: dodać przekierowanie gdy ktoś jest już zalogowany zeby nie było erroru 403
-                                        .requestMatchers("/informacja").hasAnyAuthority("USER","USER_WEAK")
-                                        .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER")
-                                        .requestMatchers("/kategorie").hasAuthority("USER")
-                                        .requestMatchers("/kategorie/dodaj").hasAuthority("USER")
-                                        .requestMatchers("/uzytkownicy").hasAuthority("ADMIN")
-                                        .requestMatchers("/uzytkownik").hasAuthority("ADMIN")
-                                        .requestMatchers("/uzytkownik/logut").authenticated()
-                                        .requestMatchers("/uzytkownik/edytuj_uzytkownika").hasAuthority("ADMIN")
-                                        .requestMatchers(toH2Console()).authenticated()
-                                        .anyRequest().authenticated()
-                                        .and().csrf().ignoringRequestMatchers(toH2Console())
-                                        .and().headers().frameOptions().sameOrigin();
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                )
+                .authorizeHttpRequests()
+                .requestMatchers("/").permitAll()
+                .requestMatchers("/uzytkownik/zarejestruj").anonymous()
+                .requestMatchers("/informacja").hasAnyAuthority("USER","USER_WEAK")
+                .requestMatchers("/informacja/dodaj").hasAnyAuthority("USER")
+                .requestMatchers("/kategorie").hasAuthority("USER")
+                .requestMatchers("/kategorie/dodaj").hasAuthority("USER")
+                .requestMatchers("/uzytkownicy").hasAuthority("ADMIN")
+                .requestMatchers("/uzytkownik").hasAuthority("ADMIN")
+                .requestMatchers("/uzytkownik/logut").authenticated()
+                .requestMatchers("/uzytkownik/edytuj_uzytkownika").hasAuthority("ADMIN")
+                .requestMatchers(toH2Console()).authenticated()
+                .anyRequest().authenticated()
+                .and().csrf().ignoringRequestMatchers(toH2Console())
+                .and().headers().frameOptions().sameOrigin()
+                .and()
                 .formLogin((form)->form
                         .loginPage("/uzytkownik/zaloguj")
                         .defaultSuccessUrl("/",true)
                         .permitAll()
                 )
-                .logout((logout) -> logout.logoutSuccessUrl("/").permitAll());
+                .logout((logout) -> logout
+                        .logoutSuccessUrl("/").permitAll()
+                        .logoutSuccessHandler(databaseFlushLogoutHandler)
+                );
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        int rounds = 12;
         return NoOpPasswordEncoder.getInstance();
     }
 
